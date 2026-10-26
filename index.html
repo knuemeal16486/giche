@@ -508,6 +508,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <li>공기 침대에 누우면 공기 침대가 찌그러진다. 침대 속 기체에 가해지는 압력이 커지기 때문이다.</li>
       <li>잠수부가 내뿜은 공기 방울은 수면으로 올라갈수록 커진다. 공기 방울에 작용하는 압력이 작아지기 때문이다.</li>
       <li>하늘 높이 올라간 헬륨 풍선은 점점 커지다가 결국 터진다.</li>
+      <li>감압 용기에 마시멜로를 넣고 공기를 빼내면 마시멜로가 커진다.</li>
     </ul>
     <h3 class="qhead">확인 문제</h3>
     <div class="quizcol" data-qsec="squeeze"></div>
@@ -537,6 +538,38 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <p class="small">찍힌 점 <b id="pv-n">0</b>개 · 표에는 0.5기압 간격 근처의 점만 골라 적는다.</p>
     <div class="tablewrap"><table class="data" aria-label="압력과 부피 기록"><thead><tr><th>압력 (기압)</th><th>부피 (mL)</th></tr></thead><tbody id="pv-body"><tr class="empty"><td colspan="2">아직 찍힌 점이 없다. 모래를 부어 보자.</td></tr></tbody></table></div>
     <div class="ctrls"><button class="btn ghost" type="button" id="pv-clear">기록 지우기</button></div>
+    <h3 class="qhead">실험 2 · 주사기 속 고무풍선</h3>
+    <p>공기를 조금 넣어 묶은 작은 고무풍선을 주사기에 넣고 입구를 막았다. 피스톤을 밀면 주사기 속 공기의 압력이 커지고, 당기면 작아진다. 이번에는 압력이 <b>작아질 때</b>도 살펴보자.</p>
+    <figure class="lift"><canvas id="cv-bal" width="360" height="300" style="aspect-ratio:360/300" aria-label="입구를 막은 주사기 속 고무풍선. 피스톤을 밀면 풍선이 작아지고, 당기면 풍선이 커진다"></canvas>
+      <figcaption>점선 원은 1기압일 때 풍선의 처음 크기다. 풍선 안팎의 입자 수는 변하지 않는다.</figcaption></figure>
+    <div class="slider">
+      <label for="bal-pos">피스톤 위치 (주사기 속 부피) <output id="o-bal" for="bal-pos">60 mL</output></label>
+      <input type="range" id="bal-pos" min="30" max="120" step="1" value="60">
+    </div>
+    <div class="ctrls"><button class="btn ghost" type="button" id="bal-reset">처음 위치로</button></div>
+    <dl class="readouts">
+      <div><dt>주사기 속 압력</dt><dd id="r-bp">1.00 <small>기압</small></dd></div>
+      <div><dt>풍선의 부피</dt><dd id="r-bv">15.0 <small>mL</small></dd></div>
+      <div><dt>풍선 크기</dt><dd id="r-br">1.00 <small>× 처음 지름</small></dd></div>
+      <div><dt>풍선 속 입자 수</dt><dd>10 <small>개 · 일정</small></dd></div>
+    </dl>
+    <div class="pq" data-answer="a">
+      <fieldset>
+        <legend><span class="tag">예측</span>피스톤을 당겨 주사기 속 공기의 압력을 낮추면 풍선은 어떻게 될까?</legend>
+        <label class="opt"><input type="radio" name="p6" value="a">커진다</label>
+        <label class="opt"><input type="radio" name="p6" value="b">작아진다</label>
+        <label class="opt"><input type="radio" name="p6" value="c">그대로다</label>
+      </fieldset>
+      <div class="flap" data-flap>
+        <div class="flap-body">
+          <p class="verdict" aria-live="polite"></p>
+          <p>피스톤을 당기면 주사기 속 공기의 부피가 커져 입자 사이가 멀어지고, 풍선 바깥 면에 부딪치는 횟수가 줄어든다. 풍선을 바깥에서 누르는 압력이 작아지므로, 풍선 속 기체가 안쪽 면을 미는 힘이 더 커서 풍선이 커진다. 풍선이 커지면 풍선 속 입자 사이도 멀어져 안쪽 충돌이 줄고, 안팎의 압력이 같아지는 곳에서 멈춘다.</p>
+          <p>피스톤을 밀면 모든 과정이 반대로 일어나 풍선이 작아진다. 두 경우 모두 풍선 속 입자의 개수와 크기는 그대로다. 높은 산에서 부푸는 과자 봉지, 감압 용기 속에서 커지는 마시멜로가 압력이 작아질 때의 예다.</p>
+          <button class="flap-close" type="button">플랩 다시 덮기</button>
+        </div>
+        <button class="flap-cover" type="button" aria-expanded="false"><span>플랩을 들어 확인하기</span><small>예측을 고르고 피스톤을 당겨 본 뒤에!</small></button>
+      </div>
+    </div>
     <footer class="folio">6</footer>
   </article>
 </section>
@@ -766,7 +799,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <tbody>
       <tr><td>1–2쪽 압력이란?</td><td>06-01</td><td>벽돌 수(힘)와 놓는 방향(면적)을 바꾸며 스펀지가 눌린 깊이 비교</td><td>힘과 면적 가운데 무엇을 바꿨나? 압력은 어떻게 달라졌나?</td></tr>
       <tr><td>3–4쪽 기체의 압력</td><td>06-01</td><td>입자 수를 바꾸며 충돌 횟수와 압력계 관찰</td><td>반짝임이 많아지면 압력은? 아래 벽에서만 반짝이나?</td></tr>
-      <tr><td>5–6쪽 압력과 부피</td><td>06-02</td><td>모래를 부으며 압력·부피를 연속 기록, 그래프 모양 찾기</td><td>입자의 수와 크기는 변했나? 무엇이 줄었나?</td></tr>
+      <tr><td>5–6쪽 압력과 부피</td><td>06-02</td><td>모래를 부으며 압력·부피를 연속 기록, 그래프 모양 찾기. 주사기 속 고무풍선으로 압력이 커질 때와 작아질 때 비교</td><td>입자의 수와 크기는 변했나? 무엇이 줄었나?</td></tr>
       <tr><td>7–8쪽 보일의 J자 관</td><td>06-02 (심화)</td><td>수은을 부으며 높이차와 공기 기둥 길이를 연속 기록, 압력 막대 두 개 비교</td><td>왜 같은 높이끼리 비교할까? 수은을 빨리 부으면 막대는 어떻게 되나?</td></tr>
       <tr><td>9–10쪽 온도와 부피</td><td>06-03</td><td>물 온도를 바꾸며 부피 기록, 입자 하나 따라가기</td><td>색이 바뀐 건 입자가 변해서인가?</td></tr>
       <tr><td>11–12쪽 형성 평가</td><td>06-01~03</td><td>8문항, 플랩으로 스스로 채점</td><td>틀린 문제는 어느 펼침면으로 돌아가야 할까?</td></tr>
@@ -797,6 +830,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <li>9–10쪽 빠르기·충돌 세기 막대와 충돌 표시의 크기는 과장된 입자 빠르기를 따른다. 그래서 막대에는 숫자를 붙이지 않았다. 그래프의 점선은 직선을 0 ℃ 아래로 늘인 것이다. 부피가 0이 되는 약 −273 ℃는 고등학교 내용이라 본문에서 다루지 않았다.</li>
     <li>압력과 부피 실험에서 모래는 ‘대기압의 몇 배를 더 누르는가’로만 다뤘다. 압력을 대기압의 5배까지 올리는데, 실제 60 mL 주사기라면 대기압만큼 더 누르는 데에만 모래가 약 6 kg 필요하다. 피스톤 마찰과 무게는 없다.</li>
     <li>그래프의 점은 압력 센서가 잰 기체의 압력과 부피다. 모래를 빠르게 부으면 피스톤이 따라 내려가는 동안 센서 값이 모래의 무게보다 잠깐 늦게 오른다. 측정값에는 실제 실험처럼 ±0.3 % 정도의 흔들림을 넣었다.</li>
+    <li>주사기 속 고무풍선은 고무의 탄성을 무시해 풍선 속 압력이 주사기 속 압력과 같다고 보았다. 그래서 풍선 부피는 주사기 속 부피에 비례해 변하고(주사기 60 mL일 때 풍선 15 mL), 풍선은 공 모양이라고 보고 반지름을 부피의 세제곱근에 비례하게 그렸다. 실제 고무풍선은 고무가 조이는 힘 때문에 속 압력이 바깥보다 조금 높다.</li>
     <li>J자 관은 굵기가 일정하고 온도가 일정하다고 보았다. 대기압은 수은 기둥 76 cm로 고정했고, 수은 면의 볼록한 모양은 그림으로만 나타냈을 뿐 모세관 현상은 계산에 넣지 않았다. 높이차는 100 cm까지만 만들 수 있다. 수은을 부으면 열린 쪽이 먼저 차오르고 막힌 쪽이 조금 늦게 따라가도록 해, 압력 막대 두 개가 잠깐 어긋났다가 같아지는 과정을 볼 수 있게 했다.</li>
     <li>온도에 따른 입자 빠르기의 차이를 눈에 보이게 과장했다. 실제로 0 ℃에서 80 ℃로 오를 때 공기 입자의 평균 빠르기는 약 14 % 커지지만, 화면에서는 약 1.7배로 보인다. 부피 값은 과장하지 않았다.</li>
     <li>입자의 색은 빠르기를 표시한 것이다. 같은 온도에서도 입자마다 빠르기가 달라 색이 조금씩 다르다.</li>
@@ -1097,6 +1131,45 @@ sims.gas=(()=>{const o=setup($('#cv-box'),360,340),g=new Gas(11),b={x0:22,y0:58,
     text(ctx,'압력계',gx,gy+gr+18,{align:'center',font:`600 12px ${KR}`});
     text(ctx,`기체 입자 ${N}개`,b.x0+8,b.y0-12,{font:`21px ${HAND}`,color:ACCENT});}}})();
 
+/* 5–6 experiment 2: a small balloon sealed inside a syringe; push or pull the piston */
+const BAL=(()=>{const o=setup($('#cv-bal'),360,300),go=new Gas(61),gi=new Gas(67);
+  const X0=34,YT=86,YB=214,PX=2.4,VB0=15,VS0=60,R0=40,VS=100,cy=(YT+YB)/2;
+  let vs=60,vt=60,acc=0;
+  const xp=()=>X0+vs*PX,rb=()=>R0*Math.cbrt(vs/VS0),bx=()=>X0+Math.min(rb()+8,(xp()-X0)/2);
+  go.count(30,{x0:X0,x1:xp(),y0:YT,y1:YB},(x,y)=>Math.hypot(x-bx(),y-cy)>rb()+R+3);
+  gi.count(10,{x0:bx()-rb(),x1:bx()+rb(),y0:cy-rb(),y1:cy+rb()},(x,y)=>Math.hypot(x-bx(),y-cy)<rb()-R-2);
+  const sl=$('#bal-pos');const setT=v=>{vt=v;sl.value=v;$('#o-bal').textContent=v+' mL'};
+  sl.addEventListener('input',()=>setT(+sl.value));$('#bal-reset').addEventListener('click',()=>setT(60));
+  return{tick(dt){vs+=(vt-vs)*(1-Math.exp(-dt*4));if(Math.abs(vt-vs)<.01)vs=vt;
+    const P=VS0/vs,Vb=VB0*vs/VS0,r=rb(),x=bx(),XP=xp();
+    go.step(dt,{x0:X0,x1:XP,y0:YT,y1:YB},VS);
+    for(const p of go.ps){const ex=p.x-x,ey=p.y-cy,d=Math.hypot(ex,ey)||1,lim=r+R+1.5;
+      if(d<lim){const nx=ex/d,ny=ey/d,dot=p.dx*nx+p.dy*ny;if(dot<0){p.dx-=2*dot*nx;p.dy-=2*dot*ny;go.hit(x+nx*r,cy+ny*r,'c',Math.atan2(ny,nx),p.sp*VS)}
+        p.x=clamp(x+nx*lim,X0+R,XP-R);p.y=clamp(cy+ny*lim,YT+R,YB-R)}}
+    gi.stepCircle(dt,{x,y:cy,R:r},VS);
+    acc+=dt;if(acc>.15){acc=0;$('#r-bp').innerHTML=`${P.toFixed(2)} <small>기압</small>`;$('#r-bv').innerHTML=`${Vb.toFixed(1)} <small>mL</small>`;$('#r-br').innerHTML=`${(r/R0).toFixed(2)} <small>× 처음 지름</small>`}
+    begin(o);const ctx=o.ctx;
+    ctx.fillStyle=GLASS;ctx.globalAlpha=.45;ctx.fillRect(X0,YT,XP-X0,YB-YT);ctx.globalAlpha=.2;ctx.fillRect(XP,YT,340-XP,YB-YT);ctx.globalAlpha=1;
+    for(let v=0;v<=120;v+=10){const gx=X0+v*PX;inkLine(ctx,gx,YT-2,gx,YT-(v%20?6:10),{w:.9,seed:v+900});if(v%20===0&&v)text(ctx,String(v),gx,YT-14,{align:'center',font:`500 11px ${SERIF}`})}
+    text(ctx,'mL',X0,YT-14,{align:'center',font:`italic 500 11px ${SERIF}`,color:INK2});
+    go.draw(ctx,p=>speedCol(p.sp));
+    ctx.setLineDash([4,4]);ctx.strokeStyle=INK2;ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(x,cy,R0,0,6.283);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle=ACCENT;ctx.globalAlpha=.1;ctx.beginPath();ctx.arc(x,cy,r,0,6.283);ctx.fill();ctx.globalAlpha=1;
+    gi.draw(ctx,p=>speedCol(p.sp));
+    inkCircle(ctx,x,cy,r,{w:2.2,color:ACCENT,seed:931});
+    ctx.strokeStyle=ACCENT;ctx.globalAlpha=.5;ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(x,cy,r*.72,3.6,4.3);ctx.stroke();ctx.globalAlpha=1;
+    fillPoly(ctx,[[x-r-1,cy],[x-r-9,cy-5],[x-r-9,cy+5]],ACCENT);
+    const pis=[[XP,YT],[XP+10,YT],[XP+10,YB],[XP,YB]];fillPoly(ctx,pis,METAL);hatchPoly(ctx,pis,4,.35);inkPoly(ctx,pis,{seed:941,w:1.5});inkLine(ctx,XP+1.5,YT,XP+1.5,YB,{w:2.6,seed:943});
+    const rod=[[XP+10,cy-6],[372,cy-6],[372,cy+6],[XP+10,cy+6]];fillPoly(ctx,rod,METAL);inkLine(ctx,XP+10,cy-6,372,cy-6,{w:1.2,seed:945});inkLine(ctx,XP+10,cy+6,372,cy+6,{w:1.2,seed:947});
+    inkLine(ctx,X0-2,YT-2,340,YT-2,{w:2,seed:951});inkLine(ctx,X0-2,YB+2,340,YB+2,{w:2,seed:953});inkLine(ctx,X0-2,YT-2,X0-2,YB+2,{w:2,seed:955});
+    inkLine(ctx,340,YT-16,340,YB+16,{w:2.2,seed:957});
+    const nz=[[X0-16,cy-7],[X0-2,cy-7],[X0-2,cy+7],[X0-16,cy+7]];fillPoly(ctx,nz,INK);
+    text(ctx,'입구 막음',X0-6,YB+24,{font:`17px ${HAND}`,color:INK2});
+    text(ctx,'점선 = 처음 크기',336,YB+24,{align:'right',font:`17px ${HAND}`,color:INK2});
+    const st=P>1.02?'밀었다 → 압력 증가 → 풍선이 작아짐':P<.98?'당겼다 → 압력 감소 → 풍선이 커짐':'처음 상태 · 1기압';
+    text(ctx,st,180,280,{align:'center',font:`18px ${HAND}`,color:Math.abs(P-1)<.02?INK2:ACCENT});
+    text(ctx,'풍선 속 입자 10개',X0-6,YT-36,{font:`17px ${HAND}`,color:ACCENT});text(ctx,'주사기 속 입자 30개',336,YT-36,{align:'right',font:`17px ${HAND}`,color:INK2})}}})();
+
 /* 5–6 syringe: sand poured on the piston, pressure sensor logs points continuously */
 sims.squeeze=(()=>{const o=setup($('#cv-syr'),360,440),og=setup($('#cv-pv'),360,250),g=new Gas(23),nr=mulberry(77),sr=mulberry(41);
   const X0=112,X1=248,BOT=414,PX=5,TOP=62,VS=110,MAXS=4,RATE=.5,CX=(X0+X1)/2;
@@ -1116,7 +1189,7 @@ sims.squeeze=(()=>{const o=setup($('#cv-syr'),360,440),og=setup($('#cv-pv'),360,
     $('#pv-body').innerHTML=rows.length?rows.map(p=>`<tr><td>${p.x.toFixed(2)}</td><td>${p.y.toFixed(1)}</td></tr>`).join(''):`<tr class="empty"><td colspan="2">${pts.length?'압력 1.0, 1.5, 2.0 … 근처의 점이 찍히면 여기에 적힌다.':'아직 찍힌 점이 없다. 모래를 부어 보자.'}</td></tr>`;
     let lo=9,hi=0;for(const p of pts){lo=Math.min(lo,p.x);hi=Math.max(hi,p.x)}const ok=hi-lo>=1;curB.disabled=!ok;if(!ok&&show){show=false;curB.setAttribute('aria-pressed','false')}
     $('#pv-n').textContent=pts.length}
-  return{tick(dt){
+  return{tick(dt){BAL.tick(dt);
     if(dir){const x=RATE*dt;sand+=dir*x;pend=Math.max(0,pend-x)}else if(pend>0){const x=Math.min(pend,RATE*dt);sand+=ld*x;pend-=x}
     sand=clamp(sand,0,MAXS);if((sand>=MAXS&&dir===1)||(sand<=0&&dir===-1)){dir=0;pend=0}
     pour.disabled=sand>=MAXS;take.disabled=sand<=0;
