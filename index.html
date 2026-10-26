@@ -186,6 +186,20 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
 .qfig.mini text{font-size:8px}
 .meter{display:block;height:11px;border:1.4px solid var(--ink);border-radius:999px;margin-top:9px;overflow:hidden;background:var(--paper)}
 .meter i{display:block;height:100%;width:50%;transition:width .2s}
+.exphead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.exphead small{font:400 22px/1 var(--hand);color:var(--accent)}
+.obsbox{border:1.4px solid var(--ink);border-radius:3px;padding:12px 16px;background:var(--paper);box-shadow:3px 4px 0 var(--paper-shade)}
+.obs{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:8px}
+.obs li{display:flex;gap:10px;align-items:flex-start;color:var(--ink-2);line-height:1.5}
+.obs li small{display:block;font-size:13px;color:var(--ink-2)}
+.obs .box{flex:none;width:22px;height:22px;margin-top:2px;border:1.6px solid var(--ink);border-radius:3px 6px 2px 5px;display:grid;place-content:center}
+.obs li.done{color:var(--ink);font-weight:600}
+.obs li.done .box::after{content:"✓";font:700 19px/1 var(--serif);color:var(--accent);transform:translate(1px,-2px)}
+.gate{position:relative;margin-top:24px!important}
+.gate.locked .gate-body{filter:blur(2.5px);opacity:.28;user-select:none}
+.gate-lock{position:absolute;left:0;right:0;top:40px;z-index:4;display:grid;justify-items:center;gap:8px;text-align:center;padding:22px 18px;border:1.6px dashed var(--accent);border-radius:4px;background:var(--paper);box-shadow:0 10px 24px rgba(40,30,20,.14)}
+.gate:not(.locked) .gate-lock{display:none}
+.gate-body > * + *{margin-top:16px}
 .data.cmp{min-width:540px;font-size:14px;line-height:1.5;font-family:var(--kr)}
 .data.cmp th,.data.cmp td{text-align:left;vertical-align:top}
 .data.cmp td:first-child{font-weight:700;white-space:nowrap}
@@ -253,6 +267,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
 }
 /* electronic whiteboard / large monitor: a wider book and larger type for the back of the room */
 @media (min-width:1500px){
+  .exphead small{font-size:26px}.obs li small{font-size:15px}
   body{font-size:20px}
   h1{font-size:clamp(48px,3.4vw,64px)}
   h2{font-size:clamp(33px,2.2vw,42px)}
@@ -470,9 +485,9 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <p>오른쪽 실험에서는 막힌 실린더의 피스톤 위에 모래를 조금씩 붓는다. 모래가 쌓일수록 기체를 누르는 압력이 커진다. 실린더에 연결된 압력 센서가 기체의 압력을 재고, 부피와 함께 그래프에 점을 이어서 찍는다. 기체의 <b>온도와 입자 수는 그대로</b> 둔다.</p>
     <h3>실험 순서</h3>
     <ol class="steps">
-      <li>‘연속 기록’이 켜져 있는지 확인한다.</li>
-      <li>‘모래 붓기’를 누르고 있으면 모래가 쏟아진다. 압력이 5기압이 될 때까지 천천히 붓는다.</li>
-      <li>찍힌 점들이 어떤 모양을 이루는지 살펴보고, 모래를 덜어 낼 때도 같은 길로 돌아오는지 확인한다.</li>
+      <li><b>실험 1</b>: ‘모래 붓기’를 누르고 있으면 모래가 쏟아진다. 압력이 커질 때 부피가 어떻게 변하는지 본다.</li>
+      <li><b>실험 2</b>: 주사기의 피스톤을 밀고 당기며, 압력이 커질 때와 작아질 때 풍선과 주사기 속 부피가 어떻게 변하는지 본다.</li>
+      <li>두 가지를 모두 확인하면 <b>그래프 분석</b>이 열린다. 두 실험의 점이 어떤 모양을 이루는지, 압력이 2배·1/2배가 될 때 부피가 어떻게 되는지 읽는다.</li>
     </ol>
     <div class="pq" data-answer="c">
       <fieldset>
@@ -515,6 +530,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <footer class="folio">5</footer>
   </article>
   <article class="page right">
+    <h3 class="exphead">실험 1 · 모래로 누르기 <small>압력이 커질 때</small></h3>
     <figure class="lift" data-stamp-host="squeeze">
       <canvas id="cv-syr" width="360" height="440" style="aspect-ratio:360/440" aria-label="입구가 막힌 실린더와 피스톤, 그 위에 쌓이는 모래, 압력 센서. 모래를 부으면 기체의 부피가 줄어든다"></canvas>
       <figcaption>실린더 아래쪽 입구는 막혀 있어 기체가 빠져나가지 못한다. 옆에 붙은 압력 센서가 실린더 속 기체의 압력을 잰다.</figcaption>
@@ -533,25 +549,27 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <div><dt>입자 운동의 빠르기</dt><dd>일정 <small>온도 일정</small></dd></div>
     </dl>
     <div class="task" id="task-squeeze"><b>도전</b>피스톤을 빨간 깃발(20 mL)에 맞추고 1초 동안 그대로 두자. 그때 압력은 몇 기압일지 먼저 말해 보자. 짧게 톡톡 누르면 조금씩 부어진다.</div>
-    <div class="subhead"><h3>압력–부피 그래프</h3><button class="btn ghost" type="button" id="pv-curve" aria-pressed="false" disabled>추세선 보기</button></div>
-    <figure class="lift"><canvas id="cv-pv" width="360" height="250" style="aspect-ratio:360/250" aria-label="압력과 부피 그래프"></canvas></figure>
-    <p class="small">찍힌 점 <b id="pv-n">0</b>개 · 표에는 0.5기압 간격 근처의 점만 골라 적는다.</p>
-    <div class="tablewrap"><table class="data" aria-label="압력과 부피 기록"><thead><tr><th>압력 (기압)</th><th>부피 (mL)</th></tr></thead><tbody id="pv-body"><tr class="empty"><td colspan="2">아직 찍힌 점이 없다. 모래를 부어 보자.</td></tr></tbody></table></div>
-    <div class="ctrls"><button class="btn ghost" type="button" id="pv-clear">기록 지우기</button></div>
-    <h3 class="qhead">실험 2 · 주사기 속 고무풍선</h3>
-    <p>공기를 조금 넣어 묶은 작은 고무풍선을 주사기에 넣고 입구를 막았다. 피스톤을 밀면 주사기 속 공기의 압력이 커지고, 당기면 작아진다. 이번에는 압력이 <b>작아질 때</b>도 살펴보자.</p>
-    <figure class="lift"><canvas id="cv-bal" width="360" height="300" style="aspect-ratio:360/300" aria-label="입구를 막은 주사기 속 고무풍선. 피스톤을 밀면 풍선이 작아지고, 당기면 풍선이 커진다"></canvas>
-      <figcaption>점선 원은 1기압일 때 풍선의 처음 크기다. 풍선 안팎의 입자 수는 변하지 않는다.</figcaption></figure>
-    <div class="slider">
-      <label for="bal-pos">피스톤 위치 (주사기 속 부피) <output id="o-bal" for="bal-pos">60 mL</output></label>
-      <input type="range" id="bal-pos" min="30" max="120" step="1" value="60">
+
+    <h3 class="exphead qhead">실험 2 · 주사기 속 고무풍선 <small>압력이 커질 때와 작아질 때</small></h3>
+    <p>공기를 조금 넣어 묶은 작은 고무풍선을 주사기에 넣고 입구를 막았다. 피스톤을 밀면 주사기 속 공기의 압력이 커지고, 당기면 작아진다. 주사기 눈금은 풍선을 포함한 주사기 속 기체 전체의 부피를 나타낸다.</p>
+    <figure class="lift"><canvas id="cv-bal" width="360" height="330" style="aspect-ratio:360/330" aria-label="입구를 막은 주사기 속 고무풍선. 피스톤을 밀면 풍선이 작아지고, 당기면 풍선이 커진다"></canvas>
+      <figcaption>점선 원은 1기압일 때 풍선의 처음 크기다. 노란 반짝임은 입자가 풍선 면에 부딪친 자리다. 풍선 안팎의 입자 수는 변하지 않는다.</figcaption></figure>
+    <div class="ctrls">
+      <button class="btn" type="button" id="bal-push">◀ 피스톤 밀기</button>
+      <button class="btn" type="button" id="bal-pull">피스톤 당기기 ▶</button>
+      <button class="btn ghost" type="button" id="bal-reset">처음 위치로</button>
     </div>
-    <div class="ctrls"><button class="btn ghost" type="button" id="bal-reset">처음 위치로</button></div>
+    <div class="slider">
+      <label for="bal-pos">주사기 눈금 (피스톤 위치) <output id="o-bal" for="bal-pos">60 mL</output></label>
+      <input type="range" id="bal-pos" min="25" max="170" step="1" value="60">
+    </div>
     <dl class="readouts">
       <div><dt>주사기 속 압력</dt><dd id="r-bp">1.00 <small>기압</small></dd></div>
-      <div><dt>풍선의 부피</dt><dd id="r-bv">15.0 <small>mL</small></dd></div>
-      <div><dt>풍선 크기</dt><dd id="r-br">1.00 <small>× 처음 지름</small></dd></div>
-      <div><dt>풍선 속 입자 수</dt><dd>10 <small>개 · 일정</small></dd></div>
+      <div><dt>주사기 눈금</dt><dd id="r-bs">60 <small>mL</small></dd></div>
+      <div><dt>풍선의 부피</dt><dd id="r-bv">15.0 <small>mL · ×1.00</small></dd></div>
+      <div><dt>풍선 바깥 면 충돌</dt><dd id="r-bo">0 <small>번/초</small></dd></div>
+      <div><dt>풍선 안쪽 면 충돌</dt><dd id="r-bi">0 <small>번/초</small></dd></div>
+      <div><dt>풍선 속 입자 수</dt><dd>14 <small>개 · 일정</small></dd></div>
     </dl>
     <div class="pq" data-answer="a">
       <fieldset>
@@ -570,6 +588,47 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
         <button class="flap-cover" type="button" aria-expanded="false"><span>플랩을 들어 확인하기</span><small>예측을 고르고 피스톤을 당겨 본 뒤에!</small></button>
       </div>
     </div>
+
+    <div class="obsbox" id="pv-obs">
+      <h3>관찰 체크</h3>
+      <ul class="obs">
+        <li id="obs-inc"><span class="box" aria-hidden="true"></span><span>압력이 커질 때 부피 변화를 확인했다 <small>(실험 1에서 2기압 이상, 또는 실험 2에서 피스톤 밀기)</small></span></li>
+        <li id="obs-dec"><span class="box" aria-hidden="true"></span><span>압력이 작아질 때 부피 변화를 확인했다 <small>(실험 2에서 피스톤 당기기, 또는 실험 1에서 모래 덜기)</small></span></li>
+      </ul>
+    </div>
+
+    <section class="gate locked" id="pv-gate" aria-label="그래프 분석">
+      <div class="gate-lock">
+        <p><b>그래프 분석은 아직 잠겨 있다.</b><br>압력이 커질 때와 작아질 때를 모두 확인하면 열린다.</p>
+        <button class="flap-close" type="button" id="pv-unlock">선생님: 바로 열기</button>
+      </div>
+      <div class="gate-body" inert>
+        <div class="subhead"><h3>그래프 분석 · 압력–부피</h3><button class="btn ghost" type="button" id="pv-curve" aria-pressed="false" disabled>추세선 보기</button></div>
+        <p class="small">검은 점은 실험 1(모래), 빨간 점은 실험 2(주사기 눈금)에서 찍힌 점이다. 두 기체 모두 1기압에서 60 mL로 시작했다.</p>
+        <figure class="lift"><canvas id="cv-pv" width="360" height="270" style="aspect-ratio:360/270" aria-label="압력과 부피 그래프. 실험 1과 실험 2의 점"></canvas></figure>
+        <p class="small">찍힌 점 <b id="pv-n">0</b>개 · 표에는 압력 0.5, 1, 2 … 근처의 점만 골라 적는다.</p>
+        <div class="tablewrap"><table class="data" aria-label="압력과 부피 기록"><thead><tr><th>실험</th><th>압력 (기압)</th><th>부피 (mL)</th></tr></thead><tbody id="pv-body"><tr class="empty"><td colspan="3">아직 찍힌 점이 없다.</td></tr></tbody></table></div>
+        <div class="ctrls"><button class="btn ghost" type="button" id="pv-clear">기록 지우기</button></div>
+        <div class="pq" data-answer="c">
+          <fieldset>
+            <legend><span class="tag">그래프 읽기</span>그래프에서 압력이 1기압에서 0.5기압으로 작아지면, 부피는 처음(60 mL)의 몇 배가 될까?</legend>
+            <label class="opt"><input type="radio" name="p7" value="a">1/2배 (30 mL)</label>
+            <label class="opt"><input type="radio" name="p7" value="b">그대로 (60 mL)</label>
+            <label class="opt"><input type="radio" name="p7" value="c">2배 (120 mL)</label>
+            <label class="opt"><input type="radio" name="p7" value="d">4배 (240 mL)</label>
+          </fieldset>
+          <div class="flap" data-flap>
+            <div class="flap-body">
+              <p class="verdict" aria-live="polite"></p>
+              <p>압력이 1/2이 되면 부피는 2배가 된다. 거꾸로 압력이 2배가 되면 부피는 1/2이 된다. 실험 1과 실험 2의 점은 하나의 곡선 위에 놓인다. 압력이 커지는 쪽(오른쪽)과 작아지는 쪽(왼쪽)이 같은 규칙을 따르기 때문이다.</p>
+              <p><strong>온도가 일정할 때 기체의 압력과 부피는 반비례한다(보일 법칙).</strong></p>
+              <button class="flap-close" type="button">플랩 다시 덮기</button>
+            </div>
+            <button class="flap-cover" type="button" aria-expanded="false"><span>플랩을 들어 확인하기</span><small>그래프에서 0.5기압 근처의 점을 먼저 찾아보자</small></button>
+          </div>
+        </div>
+      </div>
+    </section>
     <footer class="folio">6</footer>
   </article>
 </section>
@@ -799,7 +858,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <tbody>
       <tr><td>1–2쪽 압력이란?</td><td>06-01</td><td>벽돌 수(힘)와 놓는 방향(면적)을 바꾸며 스펀지가 눌린 깊이 비교</td><td>힘과 면적 가운데 무엇을 바꿨나? 압력은 어떻게 달라졌나?</td></tr>
       <tr><td>3–4쪽 기체의 압력</td><td>06-01</td><td>입자 수를 바꾸며 충돌 횟수와 압력계 관찰</td><td>반짝임이 많아지면 압력은? 아래 벽에서만 반짝이나?</td></tr>
-      <tr><td>5–6쪽 압력과 부피</td><td>06-02</td><td>모래를 부으며 압력·부피를 연속 기록, 그래프 모양 찾기. 주사기 속 고무풍선으로 압력이 커질 때와 작아질 때 비교</td><td>입자의 수와 크기는 변했나? 무엇이 줄었나?</td></tr>
+      <tr><td>5–6쪽 압력과 부피</td><td>06-02</td><td>실험 1(모래)로 압력이 커질 때, 실험 2(주사기 속 고무풍선)로 커질 때와 작아질 때를 확인한 뒤 그래프 분석</td><td>입자의 수와 크기는 변했나? 무엇이 줄었나?</td></tr>
       <tr><td>7–8쪽 보일의 J자 관</td><td>06-02 (심화)</td><td>수은을 부으며 높이차와 공기 기둥 길이를 연속 기록, 압력 막대 두 개 비교</td><td>왜 같은 높이끼리 비교할까? 수은을 빨리 부으면 막대는 어떻게 되나?</td></tr>
       <tr><td>9–10쪽 온도와 부피</td><td>06-03</td><td>물 온도를 바꾸며 부피 기록, 입자 하나 따라가기</td><td>색이 바뀐 건 입자가 변해서인가?</td></tr>
       <tr><td>11–12쪽 형성 평가</td><td>06-01~03</td><td>8문항, 플랩으로 스스로 채점</td><td>틀린 문제는 어느 펼침면으로 돌아가야 할까?</td></tr>
@@ -830,7 +889,8 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <li>9–10쪽 빠르기·충돌 세기 막대와 충돌 표시의 크기는 과장된 입자 빠르기를 따른다. 그래서 막대에는 숫자를 붙이지 않았다. 그래프의 점선은 직선을 0 ℃ 아래로 늘인 것이다. 부피가 0이 되는 약 −273 ℃는 고등학교 내용이라 본문에서 다루지 않았다.</li>
     <li>압력과 부피 실험에서 모래는 ‘대기압의 몇 배를 더 누르는가’로만 다뤘다. 압력을 대기압의 5배까지 올리는데, 실제 60 mL 주사기라면 대기압만큼 더 누르는 데에만 모래가 약 6 kg 필요하다. 피스톤 마찰과 무게는 없다.</li>
     <li>그래프의 점은 압력 센서가 잰 기체의 압력과 부피다. 모래를 빠르게 부으면 피스톤이 따라 내려가는 동안 센서 값이 모래의 무게보다 잠깐 늦게 오른다. 측정값에는 실제 실험처럼 ±0.3 % 정도의 흔들림을 넣었다.</li>
-    <li>주사기 속 고무풍선은 고무의 탄성을 무시해 풍선 속 압력이 주사기 속 압력과 같다고 보았다. 그래서 풍선 부피는 주사기 속 부피에 비례해 변하고(주사기 60 mL일 때 풍선 15 mL), 풍선은 공 모양이라고 보고 반지름을 부피의 세제곱근에 비례하게 그렸다. 실제 고무풍선은 고무가 조이는 힘 때문에 속 압력이 바깥보다 조금 높다.</li>
+    <li>주사기 속 고무풍선은 고무의 탄성을 무시해 풍선 속 압력이 주사기 속 압력과 같다고 보았다. 그래서 풍선 부피는 주사기 눈금(풍선 포함 전체 부피)에 비례해 변한다(주사기 60 mL일 때 풍선 15 mL, 주사기 25~170 mL). 변화가 뚜렷하게 보이도록 다른 모형처럼 2차원으로 보고, 풍선이 차지하는 넓이가 부피에 비례하게 그렸다. 실제 고무풍선은 고무가 조이는 힘 때문에 속 압력이 바깥보다 조금 높다.</li>
+    <li>5–6쪽 그래프 분석은 압력이 커질 때와 작아질 때를 모두 확인해야 열린다(관찰 체크). 시범을 먼저 보일 때는 ‘선생님: 바로 열기’로 열 수 있다. 그래프에는 실험 1(모래, 검은 점)과 실험 2(주사기 눈금, 빨간 점)가 함께 찍히며, 두 기체 모두 1기압·60 mL에서 시작하므로 같은 반비례 곡선 위에 놓인다.</li>
     <li>J자 관은 굵기가 일정하고 온도가 일정하다고 보았다. 대기압은 수은 기둥 76 cm로 고정했고, 수은 면의 볼록한 모양은 그림으로만 나타냈을 뿐 모세관 현상은 계산에 넣지 않았다. 높이차는 100 cm까지만 만들 수 있다. 수은을 부으면 열린 쪽이 먼저 차오르고 막힌 쪽이 조금 늦게 따라가도록 해, 압력 막대 두 개가 잠깐 어긋났다가 같아지는 과정을 볼 수 있게 했다.</li>
     <li>온도에 따른 입자 빠르기의 차이를 눈에 보이게 과장했다. 실제로 0 ℃에서 80 ℃로 오를 때 공기 입자의 평균 빠르기는 약 14 % 커지지만, 화면에서는 약 1.7배로 보인다. 부피 값은 과장하지 않았다.</li>
     <li>입자의 색은 빠르기를 표시한 것이다. 같은 온도에서도 입자마다 빠르기가 달라 색이 조금씩 다르다.</li>
@@ -975,7 +1035,7 @@ function graph(o,g){begin(o);const ctx=o.ctx,L=50,Rm=16,T=20,B=44,W=o.LW-L-Rm,H=
   if(g.curve&&g.show){ctx.setLineDash([6,4]);ctx.strokeStyle=ACCENT;ctx.lineWidth=1.6;ctx.beginPath();for(let i=0;i<=80;i++){const x=g.cx0+(g.cx1-g.cx0)*i/80;const y=g.curve(x);i?ctx.lineTo(X(x),Y(y)):ctx.moveTo(X(x),Y(y))}ctx.stroke();ctx.setLineDash([])}
   if(g.live){const lx=X(g.live.x),ly=Y(g.live.y);ctx.strokeStyle=FAINT;ctx.setLineDash([3,3]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(lx,T+H);ctx.moveTo(lx,ly);ctx.lineTo(YA,ly);ctx.stroke();ctx.setLineDash([]);
     ctx.drawImage(sprite(g.liveCol||FLASHRGB),lx-16,ly-16,32,32);ctx.strokeStyle=ACCENT;ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(lx,ly,6.5,0,6.283);ctx.stroke()}
-  if(g.dots){ctx.fillStyle=INK;ctx.globalAlpha=.8;for(const p of g.pts){ctx.beginPath();ctx.arc(X(p.x),Y(p.y),2.3,0,6.283);ctx.fill()}ctx.globalAlpha=1}else for(const p of g.pts){const px=X(p.x),py=Y(p.y);ctx.fillStyle=INK;ctx.beginPath();ctx.arc(px,py,4.3,0,6.283);ctx.fill();inkCircle(ctx,px,py,5.6,{w:.9,seed:p.x*3+p.y})}
+  if(g.dots){ctx.globalAlpha=.8;for(const p of g.pts){ctx.fillStyle=p.c||INK;ctx.beginPath();ctx.arc(X(p.x),Y(p.y),2.3,0,6.283);ctx.fill()}ctx.globalAlpha=1}else for(const p of g.pts){const px=X(p.x),py=Y(p.y);ctx.fillStyle=INK;ctx.beginPath();ctx.arc(px,py,4.3,0,6.283);ctx.fill();inkCircle(ctx,px,py,5.6,{w:.9,seed:p.x*3+p.y})}
   ctx.restore();}
 
 /* ---------- stamps ---------- */
@@ -1131,49 +1191,62 @@ sims.gas=(()=>{const o=setup($('#cv-box'),360,340),g=new Gas(11),b={x0:22,y0:58,
     text(ctx,'압력계',gx,gy+gr+18,{align:'center',font:`600 12px ${KR}`});
     text(ctx,`기체 입자 ${N}개`,b.x0+8,b.y0-12,{font:`21px ${HAND}`,color:ACCENT});}}})();
 
+/* 5–6 shared P–V record, observation checklist and graph gate */
+const PV={pts:[],dirty:true,inc:false,dec:false,live:null};
+function markObs(k){if(PV[k])return;PV[k]=true;$('#obs-'+k).classList.add('done');if(PV.inc&&PV.dec)unlockPV()}
+function unlockPV(){const g=$('#pv-gate');if(!g.classList.contains('locked'))return;g.classList.remove('locked');$('.gate-body',g).inert=false;PV.dirty=true}
+$('#pv-unlock').addEventListener('click',unlockPV);
+function holdDir(el,set){const on=e=>{if(el.disabled)return;e.preventDefault();set(true);try{el.setPointerCapture(e.pointerId)}catch(_){}};const off=()=>set(false);
+  el.addEventListener('pointerdown',on);el.addEventListener('pointerup',off);el.addEventListener('pointercancel',off);el.addEventListener('lostpointercapture',off);el.addEventListener('blur',off);
+  el.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();set(true)}});el.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')off()});el.addEventListener('contextmenu',e=>e.preventDefault())}
+
 /* 5–6 experiment 2: a small balloon sealed inside a syringe; push or pull the piston */
-const BAL=(()=>{const o=setup($('#cv-bal'),360,300),go=new Gas(61),gi=new Gas(67);
-  const X0=34,YT=86,YB=214,PX=2.4,VB0=15,VS0=60,R0=40,VS=100,cy=(YT+YB)/2;
-  let vs=60,vt=60,acc=0;
-  const xp=()=>X0+vs*PX,rb=()=>R0*Math.cbrt(vs/VS0),bx=()=>X0+Math.min(rb()+8,(xp()-X0)/2);
-  go.count(30,{x0:X0,x1:xp(),y0:YT,y1:YB},(x,y)=>Math.hypot(x-bx(),y-cy)>rb()+R+3);
-  gi.count(10,{x0:bx()-rb(),x1:bx()+rb(),y0:cy-rb(),y1:cy+rb()},(x,y)=>Math.hypot(x-bx(),y-cy)<rb()-R-2);
-  const sl=$('#bal-pos');const setT=v=>{vt=v;sl.value=v;$('#o-bal').textContent=v+' mL'};
+const BAL=(()=>{const o=setup($('#cv-bal'),360,330),go=new Gas(61),gi=new Gas(67),nr=mulberry(83);
+  const X0=30,YT=100,YB=230,PX=1.7,VB0=15,VS0=60,R0=30,VS=110,cy=(YT+YB)/2,VMIN=25,VMAX=170,MOVE=45;
+  let vs=60,vt=60,dir=0,acc=0,lastP=null,lastV=null;const bo=[];
+  const xp=()=>X0+vs*PX,rb=()=>R0*Math.sqrt(vs/VS0),bx=()=>X0+Math.min(rb()+6,(xp()-X0)/2);
+  go.count(48,{x0:X0,x1:xp(),y0:YT,y1:YB},(x,y)=>Math.hypot(x-bx(),y-cy)>rb()+R+3);
+  gi.count(14,{x0:bx()-rb(),x1:bx()+rb(),y0:cy-rb(),y1:cy+rb()},(x,y)=>Math.hypot(x-bx(),y-cy)<rb()-R-2);
+  const sl=$('#bal-pos');const setT=v=>{vt=clamp(v,VMIN,VMAX);sl.value=Math.round(vt);$('#o-bal').textContent=Math.round(vt)+' mL'};
   sl.addEventListener('input',()=>setT(+sl.value));$('#bal-reset').addEventListener('click',()=>setT(60));
-  return{tick(dt){vs+=(vt-vs)*(1-Math.exp(-dt*4));if(Math.abs(vt-vs)<.01)vs=vt;
-    const P=VS0/vs,Vb=VB0*vs/VS0,r=rb(),x=bx(),XP=xp();
+  holdDir($('#bal-push'),on=>{dir=on?-1:(dir===-1?0:dir)});holdDir($('#bal-pull'),on=>{dir=on?1:(dir===1?0:dir)});
+  return{tick(dt){if(dir)setT(vt+dir*MOVE*dt);
+    vs+=(vt-vs)*(1-Math.exp(-dt*5));if(Math.abs(vt-vs)<.02)vs=vt;
+    const P=VS0/vs,Vb=VB0*vs/VS0,r=rb(),x=bx(),XP=xp(),t=go.now;
     go.step(dt,{x0:X0,x1:XP,y0:YT,y1:YB},VS);
     for(const p of go.ps){const ex=p.x-x,ey=p.y-cy,d=Math.hypot(ex,ey)||1,lim=r+R+1.5;
-      if(d<lim){const nx=ex/d,ny=ey/d,dot=p.dx*nx+p.dy*ny;if(dot<0){p.dx-=2*dot*nx;p.dy-=2*dot*ny;go.hit(x+nx*r,cy+ny*r,'c',Math.atan2(ny,nx),p.sp*VS)}
+      if(d<lim){const nx=ex/d,ny=ey/d,dot=p.dx*nx+p.dy*ny;if(dot<0){p.dx-=2*dot*nx;p.dy-=2*dot*ny;go.hit(x+nx*r,cy+ny*r,'c',Math.atan2(ny,nx),p.sp*VS);bo.push(go.now)}
         p.x=clamp(x+nx*lim,X0+R,XP-R);p.y=clamp(cy+ny*lim,YT+R,YB-R)}}
+    while(bo.length&&go.now-bo[0]>1)bo.shift();
     gi.stepCircle(dt,{x,y:cy,R:r},VS);
-    acc+=dt;if(acc>.15){acc=0;$('#r-bp').innerHTML=`${P.toFixed(2)} <small>기압</small>`;$('#r-bv').innerHTML=`${Vb.toFixed(1)} <small>mL</small>`;$('#r-br').innerHTML=`${(r/R0).toFixed(2)} <small>× 처음 지름</small>`}
+    if(P>=1.5)markObs('inc');if(P<=.7)markObs('dec');
+    if(lastP===null||Math.abs(P-lastP)>.03||Math.abs(vs-lastV)>1.5){PV.pts.push({x:P*(1+(nr()-.5)*.006),y:vs*(1+(nr()-.5)*.006),c:ACCENT,e:2});if(PV.pts.length>900)PV.pts.shift();lastP=P;lastV=vs;PV.dirty=true;PV.live={x:P,y:vs,c:ACCENT}}
+    acc+=dt;if(acc>.15){acc=0;$('#r-bp').innerHTML=`${P.toFixed(2)} <small>기압</small>`;$('#r-bs').innerHTML=`${vs.toFixed(0)} <small>mL</small>`;$('#r-bv').innerHTML=`${Vb.toFixed(1)} <small>mL · ×${(Vb/VB0).toFixed(2)}</small>`;$('#r-bo').innerHTML=`${bo.length} <small>번/초</small>`;$('#r-bi').innerHTML=`${gi.rate()} <small>번/초</small>`}
     begin(o);const ctx=o.ctx;
-    ctx.fillStyle=GLASS;ctx.globalAlpha=.45;ctx.fillRect(X0,YT,XP-X0,YB-YT);ctx.globalAlpha=.2;ctx.fillRect(XP,YT,340-XP,YB-YT);ctx.globalAlpha=1;
-    for(let v=0;v<=120;v+=10){const gx=X0+v*PX;inkLine(ctx,gx,YT-2,gx,YT-(v%20?6:10),{w:.9,seed:v+900});if(v%20===0&&v)text(ctx,String(v),gx,YT-14,{align:'center',font:`500 11px ${SERIF}`})}
-    text(ctx,'mL',X0,YT-14,{align:'center',font:`italic 500 11px ${SERIF}`,color:INK2});
+    ctx.fillStyle=GLASS;ctx.globalAlpha=.45;ctx.fillRect(X0,YT,XP-X0,YB-YT);ctx.globalAlpha=.18;ctx.fillRect(XP,YT,330-XP,YB-YT);ctx.globalAlpha=1;
+    for(let v=0;v<=170;v+=10){const gx=X0+v*PX;inkLine(ctx,gx,YT-2,gx,YT-(v%50?6:11),{w:.9,seed:v+900});if(v%50===0&&v)text(ctx,String(v),gx,YT-15,{align:'center',font:`500 11px ${SERIF}`})}
+    text(ctx,'mL',X0+2,YT-15,{align:'center',font:`italic 500 11px ${SERIF}`,color:INK2});
     go.draw(ctx,p=>speedCol(p.sp));
     ctx.setLineDash([4,4]);ctx.strokeStyle=INK2;ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(x,cy,R0,0,6.283);ctx.stroke();ctx.setLineDash([]);
-    ctx.fillStyle=ACCENT;ctx.globalAlpha=.1;ctx.beginPath();ctx.arc(x,cy,r,0,6.283);ctx.fill();ctx.globalAlpha=1;
+    ctx.fillStyle=ACCENT;ctx.globalAlpha=.12;ctx.beginPath();ctx.arc(x,cy,r,0,6.283);ctx.fill();ctx.globalAlpha=1;
     gi.draw(ctx,p=>speedCol(p.sp));
-    inkCircle(ctx,x,cy,r,{w:2.2,color:ACCENT,seed:931});
+    inkCircle(ctx,x,cy,r,{w:2.4,color:ACCENT,seed:931});
     ctx.strokeStyle=ACCENT;ctx.globalAlpha=.5;ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(x,cy,r*.72,3.6,4.3);ctx.stroke();ctx.globalAlpha=1;
-    fillPoly(ctx,[[x-r-1,cy],[x-r-9,cy-5],[x-r-9,cy+5]],ACCENT);
+    fillPoly(ctx,[[x-r-1,cy],[x-r-8,cy-5],[x-r-8,cy+5]],ACCENT);
+    const mv=vt-vs;if(Math.abs(mv)>.8){const out=mv>0;for(let i=0;i<8;i++){const a=i*Math.PI/4+.39,c=Math.cos(a),s=Math.sin(a),r1=out?r+3:r+17,r2=out?r+15:r+5;arrow(ctx,x+c*r1,cy+s*r1,x+c*r2,cy+s*r2,{w:1.6,head:5,color:ACCENT,seed:960+i})}}
     const pis=[[XP,YT],[XP+10,YT],[XP+10,YB],[XP,YB]];fillPoly(ctx,pis,METAL);hatchPoly(ctx,pis,4,.35);inkPoly(ctx,pis,{seed:941,w:1.5});inkLine(ctx,XP+1.5,YT,XP+1.5,YB,{w:2.6,seed:943});
     const rod=[[XP+10,cy-6],[372,cy-6],[372,cy+6],[XP+10,cy+6]];fillPoly(ctx,rod,METAL);inkLine(ctx,XP+10,cy-6,372,cy-6,{w:1.2,seed:945});inkLine(ctx,XP+10,cy+6,372,cy+6,{w:1.2,seed:947});
-    inkLine(ctx,X0-2,YT-2,340,YT-2,{w:2,seed:951});inkLine(ctx,X0-2,YB+2,340,YB+2,{w:2,seed:953});inkLine(ctx,X0-2,YT-2,X0-2,YB+2,{w:2,seed:955});
-    inkLine(ctx,340,YT-16,340,YB+16,{w:2.2,seed:957});
-    const nz=[[X0-16,cy-7],[X0-2,cy-7],[X0-2,cy+7],[X0-16,cy+7]];fillPoly(ctx,nz,INK);
-    text(ctx,'입구 막음',X0-6,YB+24,{font:`17px ${HAND}`,color:INK2});
-    text(ctx,'점선 = 처음 크기',336,YB+24,{align:'right',font:`17px ${HAND}`,color:INK2});
-    const st=P>1.02?'밀었다 → 압력 증가 → 풍선이 작아짐':P<.98?'당겼다 → 압력 감소 → 풍선이 커짐':'처음 상태 · 1기압';
-    text(ctx,st,180,280,{align:'center',font:`18px ${HAND}`,color:Math.abs(P-1)<.02?INK2:ACCENT});
-    text(ctx,'풍선 속 입자 10개',X0-6,YT-36,{font:`17px ${HAND}`,color:ACCENT});text(ctx,'주사기 속 입자 30개',336,YT-36,{align:'right',font:`17px ${HAND}`,color:INK2})}}})();
+    inkLine(ctx,X0-2,YT-2,330,YT-2,{w:2,seed:951});inkLine(ctx,X0-2,YB+2,330,YB+2,{w:2,seed:953});inkLine(ctx,X0-2,YT-2,X0-2,YB+2,{w:2,seed:955});inkLine(ctx,330,YT-16,330,YB+16,{w:2.2,seed:957});
+    fillPoly(ctx,[[X0-16,cy-7],[X0-2,cy-7],[X0-2,cy+7],[X0-16,cy+7]],INK);
+    text(ctx,'풍선 속 입자 14개',X0-6,YT-40,{font:`17px ${HAND}`,color:ACCENT});text(ctx,'주사기 속 입자 48개',338,YT-40,{align:'right',font:`17px ${HAND}`,color:INK2});
+    text(ctx,'입구 막음',X0-6,YB+24,{font:`17px ${HAND}`,color:INK2});text(ctx,'점선 = 처음 크기',338,YB+24,{align:'right',font:`17px ${HAND}`,color:INK2});
+    const st=P>1.03?`압력 ${P.toFixed(2)}기압 · 풍선이 작아짐`:P<.97?`압력 ${P.toFixed(2)}기압 · 풍선이 커짐`:'처음 상태 · 1기압';
+    text(ctx,st,180,YB+64,{align:'center',font:`22px ${HAND}`,color:Math.abs(P-1)<.03?INK2:ACCENT})}}})();
 
-/* 5–6 syringe: sand poured on the piston, pressure sensor logs points continuously */
-sims.squeeze=(()=>{const o=setup($('#cv-syr'),360,440),og=setup($('#cv-pv'),360,250),g=new Gas(23),nr=mulberry(77),sr=mulberry(41);
+/* 5–6 experiment 1: sand poured on the piston, pressure sensor logs points continuously */
+sims.squeeze=(()=>{const o=setup($('#cv-syr'),360,440),og=setup($('#cv-pv'),360,270),g=new Gas(23),nr=mulberry(77),sr=mulberry(41);
   const X0=112,X1=248,BOT=414,PX=5,TOP=62,VS=110,MAXS=4,RATE=.5,CX=(X0+X1)/2;
-  let sand=0,V=60,dir=0,ld=1,pend=0,hold=0,acc=0,show=false,rec=true,lastP=null,lastV=null,dirty=true;const pts=[],grains=[];
+  let sand=0,V=60,dir=0,ld=1,pend=0,hold=0,acc=0,show=false,rec=true,lastP=null,lastV=null,maxP=1;const grains=[];
   const STIP=Array.from({length:110},()=>[sr(),sr()]);
   const box=()=>({x0:X0,x1:X1,y0:BOT-V*PX,y1:BOT});g.count(36,box());
   const pour=$('#sand-pour'),take=$('#sand-take'),recB=$('#pv-rec'),curB=$('#pv-curve');
@@ -1184,21 +1257,24 @@ sims.squeeze=(()=>{const o=setup($('#cv-syr'),360,440),og=setup($('#cv-pv'),360,
   holdBtn(pour,1);holdBtn(take,-1);
   recB.addEventListener('click',()=>{rec=!rec;recB.setAttribute('aria-pressed',String(rec));recB.textContent=rec?'연속 기록 켬':'연속 기록 끔';lastP=null});
   curB.addEventListener('click',()=>{show=!show;curB.setAttribute('aria-pressed',String(show))});
-  $('#pv-clear').addEventListener('click',()=>{pts.length=0;lastP=null;dirty=true});
-  function table(){const rows=[];for(let k=1;k<=5.001;k+=.5){let best=null,bd=.06;for(const p of pts){const d=Math.abs(p.x-k);if(d<bd){bd=d;best=p}}if(best)rows.push(best)}
-    $('#pv-body').innerHTML=rows.length?rows.map(p=>`<tr><td>${p.x.toFixed(2)}</td><td>${p.y.toFixed(1)}</td></tr>`).join(''):`<tr class="empty"><td colspan="2">${pts.length?'압력 1.0, 1.5, 2.0 … 근처의 점이 찍히면 여기에 적힌다.':'아직 찍힌 점이 없다. 모래를 부어 보자.'}</td></tr>`;
+  $('#pv-clear').addEventListener('click',()=>{PV.pts.length=0;lastP=null;PV.dirty=true});
+  const KEYS=[.5,.75,1,1.5,2,2.5,3,4,5];
+  function table(){const pts=PV.pts,rows=[];for(const e of[2,1])for(const k of KEYS){let best=null,bd=.04*k;for(const p of pts){if(p.e!==e)continue;const d=Math.abs(p.x-k);if(d<bd){bd=d;best=p}}if(best)rows.push(best)}
+    rows.sort((a,b)=>a.x-b.x);
+    $('#pv-body').innerHTML=rows.length?rows.map(p=>`<tr><td>실험 ${p.e}</td><td>${p.x.toFixed(2)}</td><td>${p.y.toFixed(1)}</td></tr>`).join(''):`<tr class="empty"><td colspan="3">${pts.length?'압력 0.5, 1, 2 … 근처의 점이 찍히면 여기에 적힌다.':'아직 찍힌 점이 없다.'}</td></tr>`;
     let lo=9,hi=0;for(const p of pts){lo=Math.min(lo,p.x);hi=Math.max(hi,p.x)}const ok=hi-lo>=1;curB.disabled=!ok;if(!ok&&show){show=false;curB.setAttribute('aria-pressed','false')}
     $('#pv-n').textContent=pts.length}
   return{tick(dt){BAL.tick(dt);
     if(dir){const x=RATE*dt;sand+=dir*x;pend=Math.max(0,pend-x)}else if(pend>0){const x=Math.min(pend,RATE*dt);sand+=ld*x;pend-=x}
     sand=clamp(sand,0,MAXS);if((sand>=MAXS&&dir===1)||(sand<=0&&dir===-1)){dir=0;pend=0}
     pour.disabled=sand>=MAXS;take.disabled=sand<=0;
-    const Vt=60/(1+sand);V+=(Vt-V)*(1-Math.exp(-dt*5));const P=60/V;
+    const Vt=60/(1+sand);V+=(Vt-V)*(1-Math.exp(-dt*5));const P=60/V;maxP=Math.max(maxP,P);
+    if(P>=2)markObs('inc');if(maxP-P>=.8)markObs('dec');
     g.step(dt,box(),VS);
-    if(rec&&(lastP===null||Math.abs(P-lastP)>.04||Math.abs(V-lastV)>.5)){pts.push({x:P*(1+(nr()-.5)*.006),y:V*(1+(nr()-.5)*.006)});if(pts.length>500)pts.shift();lastP=P;lastV=V;dirty=true}
+    if(rec&&(lastP===null||Math.abs(P-lastP)>.04||Math.abs(V-lastV)>.5)){PV.pts.push({x:P*(1+(nr()-.5)*.006),y:V*(1+(nr()-.5)*.006),c:INK,e:1});if(PV.pts.length>900)PV.pts.shift();lastP=P;lastV=V;PV.dirty=true;PV.live={x:P,y:V,c:INK}}
     const pouring=dir===1||(pend>0&&ld===1);
     if(Math.abs(V-20)<.4&&!dir&&pend===0){hold+=dt;if(hold>1)earn('squeeze')}else hold=0;
-    acc+=dt;if(acc>.15){acc=0;$('#r-p').innerHTML=`${P.toFixed(2)} <small>기압</small>`;$('#r-v').innerHTML=`${V.toFixed(1)} <small>mL</small>`;$('#r-pvh').innerHTML=`${g.rate()} <small>번</small>`;$('#r-pd').innerHTML=`${Math.sqrt(V/60).toFixed(2)} <small>× 처음</small>`;if(dirty){dirty=false;table()}}
+    acc+=dt;if(acc>.15){acc=0;$('#r-p').innerHTML=`${P.toFixed(2)} <small>기압</small>`;$('#r-v').innerHTML=`${V.toFixed(1)} <small>mL</small>`;$('#r-pvh').innerHTML=`${g.rate()} <small>번</small>`;$('#r-pd').innerHTML=`${Math.sqrt(V/60).toFixed(2)} <small>× 처음</small>`;if(PV.dirty){PV.dirty=false;table()}}
     begin(o);const ctx=o.ctx,yp=BOT-V*PX,yt=yp-14,hl=sand*8,pk=Math.min(sand,1)*9,surf=yt-hl-pk;
     ctx.fillStyle=GLASS;ctx.globalAlpha=.4;ctx.fillRect(X0,TOP,X1-X0,BOT-TOP);ctx.globalAlpha=1;
     for(let v=0;v<=60;v+=5){const y=BOT-v*PX,big=v%10===0;inkLine(ctx,X0-(big?12:7),y,X0-1,y,{w:big?1.1:.8,seed:v});if(big)text(ctx,String(v),X0-16,y+4,{align:'right',font:`500 12px ${SERIF}`})}
@@ -1221,7 +1297,7 @@ sims.squeeze=(()=>{const o=setup($('#cv-syr'),360,440),og=setup($('#cv-pv'),360,
     text(ctx,'기압',(X1+24+352)/2,BOT-6,{align:'center',font:`600 10px ${KR}`,color:INK2});text(ctx,'압력 센서',(X1+24+352)/2,BOT-52,{align:'center',font:`19px ${HAND}`,color:INK2});
     flag(ctx,X1+12,BOT-20*PX,'20 mL');
     text(ctx,'온도 일정',X1+12,TOP+8,{font:`21px ${HAND}`,color:ACCENT});
-    graph(og,{x0:0,x1:5.4,y0:0,y1:65,xt:[0,1,2,3,4,5],yt:[0,10,20,30,40,50,60],xl:'압력 (기압)',yl:'부피 (mL)',pts,dots:true,live:{x:P,y:V},liveCol:speedCol(1),curve:x=>60/x,show,cx0:.9,cx1:5.4})}}})();
+    if(!$('#pv-gate').classList.contains('locked'))graph(og,{x0:0,x1:5.4,y0:0,y1:180,xt:[0,1,2,3,4,5],yt:[0,30,60,90,120,150,180],xl:'압력 (기압)',yl:'부피 (mL)',pts:PV.pts,dots:true,live:PV.live,liveCol:speedCol(1),curve:x=>60/x,show,cx0:.33,cx1:5.4})}}})();
 
 /* 7–8 Boyle's J-tube: mercury poured into the open arm; height difference h sets the trapped air's pressure */
 sims.boyle=(()=>{const o=setup($('#cv-jt'),360,560),og=setup($('#cv-jg'),360,250),g=new Gas(57),nr=mulberry(91);
