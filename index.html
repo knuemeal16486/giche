@@ -45,6 +45,7 @@ button,input,select{font:inherit;color:inherit}
 .barnav{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .barnav select,.chip{background:var(--paper);border:1.4px solid var(--ink);border-radius:999px;padding:6px 14px;font:600 14px/1.2 var(--kr);min-height:38px;cursor:pointer}
 .chip b{font-variant-numeric:tabular-nums}
+a.chip{text-decoration:none;color:var(--ink);display:inline-flex;align-items:center}
 .chip.bump{animation:bump .5s}
 @keyframes bump{40%{transform:scale(1.12)}}
 
@@ -320,6 +321,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <option value="check">11–12쪽 · 형성 평가</option>
       <option value="words">13–14쪽 · 낱말과 도장</option>
     </select>
+    <a class="chip" href="lab.html">실험실 ↗</a>
     <button class="chip" id="stamp-chip" type="button">도장 <b id="stamp-count">0</b>/6</button>
     <button class="chip" id="teach-btn" type="button">교사용 노트</button>
   </nav>
@@ -1163,7 +1165,7 @@ sims.pressure=(()=>{const o=setup($('#cv-brick'),360,400);
     ctx.strokeStyle=INK;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(sx,sTop);ctx.lineTo(Math.max(sx,cx0-16),sTop);ctx.quadraticCurveTo(cx0+W/2,sTop+dip*2,Math.min(sx+sw,cx0+W+16),sTop);ctx.lineTo(sx+sw,sTop);ctx.stroke();
     inkLine(ctx,sx,sTop,sx,sTop+sH,{seed:61});inkLine(ctx,sx,sTop+sH,sx+sw,sTop+sH,{seed:63});inkLine(ctx,sx+sw,sTop,sx+sw,sTop+sH,{seed:65});
     const ax=fx+W/2+bx_/2,ay=yb-n*H+by_/2;arrow(ctx,ax,ay-48,ax,ay-6,{w:2,color:ACCENT,seed:71});
-    text(ctx,`누르는 힘: 벽돌 ${n}개 무게`,ax-12,ay-30,{font:`21px ${HAND}`,color:ACCENT,align:'right'});
+    text(ctx,`누르는 힘: 벽돌 ${n}개 무게`,14,30,{font:`21px ${HAND}`,color:ACCENT});
     text(ctx,'스펀지',sx+6,sTop+sH+22,{font:`600 12px ${KR}`,color:INK2});
     text(ctx,`눌린 깊이 ${(dent/3).toFixed(0)} mm`,sx+sw+ox-4,sTop+sH+22,{font:`500 12px ${SERIF}`,align:'right',color:INK2});}}})();
 
@@ -1420,7 +1422,7 @@ sims.warm=(()=>{const o=setup($('#cv-bath'),360,450),og=setup($('#cv-vt'),360,25
     text(ctx,'℃',tx-15,tTop-6,{align:'right',font:`italic 500 11px ${SERIF}`,color:INK2});
     flag(ctx,X0-30,BOT-58*PX,'');ctx.strokeStyle=ACCENT;ctx.lineWidth=1.2;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(X0-18,BOT-58*PX);ctx.lineTo(X0-2,BOT-58*PX);ctx.stroke();ctx.setLineDash([]);text(ctx,'58 mL',X0-34,BOT-58*PX-34,{font:`19px ${HAND}`,color:ACCENT,align:'right'});
     text(ctx,'↓ 가벼운 피스톤',(X0+X1)/2,TOP-10,{font:`19px ${HAND}`,color:INK2,align:'center'});
-    text(ctx,`물 ${tb} ℃`,294,206,{font:`19px ${HAND}`,color:ACCENT,align:'right'});
+    text(ctx,`물 ${tb} ℃`,292,414,{font:`17px ${HAND}`,color:ACCENT,align:'right'});
     graph(og,{x0:-100,x1:95,y0:0,y1:70,xt:[-100,-50,0,50],yt:[0,10,20,30,40,50,60,70],yax:0,xl:'기체 온도 (℃)',yl:'부피 (mL)',pts,live:{x:tg,y:V},liveCol:speedCol(1.15*vf),curve:vol,show,cx0:0,cx1:95,ext:-100})}}})();
 
 /* ================= navigation ================= */
