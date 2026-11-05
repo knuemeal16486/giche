@@ -1544,9 +1544,9 @@ sims.warmq=(()=>{const o=setup($('#cv-flask'),360,400),g=new Gas(73);
   const BODY=[[NX0,SH],[NX1,SH],[BX1,BB],[BX0,BB]],cxB=CX,cyB=(SH+BB)/2;
   const EDG=BODY.map((a,i)=>{const b=BODY[(i+1)%4];let nx=b[1]-a[1],ny=-(b[0]-a[0]);const l=Math.hypot(nx,ny);nx/=l;ny/=l;if((cxB-a[0])*nx+(cyB-a[1])*ny>0){nx=-nx;ny=-ny}return[a[0],a[1],nx,ny]});
   const sdBody=(x,y)=>Math.max(...EDG.map(([ax,ay,nx,ny])=>(x-ax)*nx+(y-ay)*ny));
-  const shape=()=>{const vb=V-V0;if(vb>.4){const r=12+3.6*Math.sqrt(vb);return{k:'up',r,cy:NT-r*.82}}if(vb<-.4){const r=Math.min(19,4.4*Math.sqrt(-vb));return{k:'in',r,cy:NT+6+r*1.15}}return{k:'flat'}};
+  const shape=()=>{const vb=V-V0;if(vb>.4){const r=12+3.6*Math.sqrt(vb);return{k:'up',r,cy:NT-r*.95}}if(vb<-.4){const r=Math.min(19,4.4*Math.sqrt(-vb));return{k:'in',r,cy:NT+6+r*1.15}}return{k:'flat'}};
   let sh=shape();
-  const sdf=(x,y)=>{let d=Math.min(sdBody(x,y),sdRect(x,y,NX0,sh.k==='in'?sh.cy:NT,NX1,SH+6));
+  const sdf=(x,y)=>{let d=Math.min(sdBody(x,y),sdRect(x,y,NX0,sh.k==='flat'?NT:sh.cy,NX1,SH+40));
     if(sh.k==='up')d=Math.min(d,Math.hypot(x-CX,y-sh.cy)-sh.r);if(sh.k==='in')d=Math.max(d,-(Math.hypot(x-CX,y-sh.cy)-sh.r));return d};
   g.count(40,{x0:BX0,y0:NT,x1:BX1,y1:BB},(x,y)=>sdf(x,y)<-R-2);
   const step=(dt,v)=>{g.now+=dt;const n=Math.max(1,Math.ceil(dt/.012)),h=dt/n,e=.6;
@@ -1570,7 +1570,9 @@ sims.warmq=(()=>{const o=setup($('#cv-flask'),360,400),g=new Gas(73);
     if(tw===0)[[56,WT+4],[268,WT+6],[84,WT+10]].forEach(([x,y],i)=>{const c=[[x,y],[x+20,y-3],[x+23,y+15],[x+3,y+18]];fillPoly(ctx,c,'rgba(255,255,255,.8)');inkPoly(ctx,c,{w:1,seed:500+i})});
     const glass=[[NX0,NT],[NX1,NT],[NX1,SH],[BX1,BB],[BX0,BB],[NX0,SH]];fillPoly(ctx,glass,'rgba(223,231,234,.55)');
     const RUB='rgba(196,55,43,.22)';
-    if(sh.k==='up'){ctx.beginPath();ctx.moveTo(NX0+2,NT+2);ctx.bezierCurveTo(NX0-sh.r*.35,NT-sh.r*.35,CX-sh.r*1.05,sh.cy+sh.r*.2,CX,sh.cy-sh.r);ctx.bezierCurveTo(CX+sh.r*1.05,sh.cy+sh.r*.2,NX1+sh.r*.35,NT-sh.r*.35,NX1-2,NT+2);ctx.closePath();ctx.fillStyle=RUB;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.stroke()}
+    if(sh.k==='up'){/* round balloon: a circle joined to the flask mouth by a short rubber neck */
+      const hw=(NX1-NX0)/2-2,dl=Math.asin(Math.min(.95,hw/sh.r)),a0=Math.PI/2+dl,a1=Math.PI/2-dl,lx=CX+sh.r*Math.cos(a0),ly=sh.cy+sh.r*Math.sin(a0),rx=CX+sh.r*Math.cos(a1);
+      ctx.beginPath();ctx.moveTo(NX0+2,NT+2);ctx.quadraticCurveTo(NX0+2,(NT+ly)/2,lx,ly);ctx.arc(CX,sh.cy,sh.r,a0,a1+Math.PI*2,false);ctx.quadraticCurveTo(NX1-2,(NT+ly)/2,NX1-2,NT+2);ctx.closePath();ctx.fillStyle=RUB;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.stroke()}
     g.draw(ctx,p=>speedCol(p.sp*vf),false);
     if(sh.k==='in'){ctx.beginPath();ctx.moveTo(NX0+1,NT);ctx.lineTo(CX-sh.r*.93,sh.cy-sh.r*.35);ctx.arc(CX,sh.cy,sh.r,Math.PI+.36,-.36,true);ctx.lineTo(NX1-1,NT);ctx.closePath();ctx.fillStyle=RUB;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.stroke();
       arrow(ctx,CX,NT-40,CX,NT-8,{w:1.4,color:INK2,seed:77});text(ctx,'바깥 공기가 밀어 넣는다',CX+16,NT-26,{font:`18px ${HAND}`,color:INK2})}
