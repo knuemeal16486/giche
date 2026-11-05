@@ -36,7 +36,8 @@ self.addEventListener('fetch', e => {
     const page = new URL('./', self.registration.scope).href;
     e.respondWith(caches.open(VERSION).then(async c => {
       const cached = await c.match(page);
-      const fresh = fetch(req, { cache: 'no-cache' })
+      // Fetch by URL: a navigate-mode Request cannot be re-sent with options.
+      const fresh = fetch(page, { cache: 'no-cache' })
         .then(r => { if (r.ok) c.put(page, r.clone()); return r; })
         .catch(() => null);
       if (cached) { e.waitUntil(fresh); return cached; }
