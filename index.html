@@ -6,9 +6,14 @@
 <style>[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>모든 입자 · 기체의 압력, 부피, 온도</title>
 <meta name="description" content="중학교 과학 1 '기체의 성질' 레슨. 종이 책 위에 잉크로 그린 모형 속에서 기체 입자가 빛나며 움직이고, 압력·부피·온도의 관계를 직접 실험한다.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@400;600;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap">
+<!-- Fonts are self-hosted subsets (only the glyphs this page uses), so the lesson needs no third-party request and works offline. Rebuild them if new text is added. -->
+<link rel="preload" href="fonts/noto-serif-kr.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Noto Serif KR";src:url(fonts/noto-serif-kr.woff2) format("woff2");font-weight:400 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(fonts/source-serif-4.woff2) format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(fonts/source-serif-4-italic.woff2) format("woff2");font-weight:400 600;font-style:italic;font-display:swap}
+@font-face{font-family:"Nanum Pen Script";src:url(fonts/nanum-pen-script.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+</style>
 <style>
 /* Layout: an open paper book on a desk. Left page carries the text, right page the live ink figure; one spread at a time, stacked into one column on phones. */
 :root{
@@ -1505,6 +1510,12 @@ let last=performance.now();
 function frame(t){const dt=Math.min(.05,(t-last)/1000);last=t;const s=sims[active];if(s)s.tick(dt);requestAnimationFrame(frame)}
 requestAnimationFrame(frame);
 })();
+</script>
+<script>
+/* Offline: cache the lesson on first visit (see sw.js). */
+if('serviceWorker' in navigator && isSecureContext){
+  addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
 </script>
 
 </body>
