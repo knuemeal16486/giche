@@ -3,7 +3,7 @@
    device even when the classroom Wi-Fi drops. The page itself is served from cache at once
    and refreshed in the background, so an edit pushed to GitHub shows up on the next visit.
    Bump VERSION whenever a file in ASSETS other than index.html changes (e.g. rebuilt fonts). */
-const VERSION = 'giche-v1';
+const VERSION = 'giche-v2';
 const ASSETS = [
   './',
   'fonts/noto-serif-kr.woff2',

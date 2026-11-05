@@ -214,6 +214,9 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
 .spread[data-key="pvlab"] .lift.fit-g{width:min(100%,calc((100vh - 360px)*var(--ar,10)))}
 .spread[data-key="pvlab"] .readouts{grid-template-columns:repeat(auto-fit,minmax(104px,1fr));padding:8px 0}
 .spread[data-key="pvlab"] .readouts dd{font-size:19px}
+.spread[data-key="warm"] .lift.fit{width:min(100%,max(260px,calc((100vh - 540px)*var(--ar,10))))}
+.spread[data-key="warm"] .lift.fit-g{width:min(100%,calc((100vh - 330px)*var(--ar,10)))}
+.spread[data-key="warm"] .readouts{grid-template-columns:repeat(auto-fit,minmax(104px,1fr));padding:8px 0}
 .btn.big{font-size:16px;min-height:52px;padding:12px 16px}
 .btn.inc{border-color:var(--accent);color:var(--accent)}
 .btn.dec{border-color:#2f7bff;color:#2f7bff}
@@ -343,8 +346,9 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <option value="pvlab">7–8쪽 · 압력 증가와 감소</option>
       <option value="boyle">9–10쪽 · 보일의 J자 관</option>
       <option value="warm">11–12쪽 · 온도와 부피</option>
-      <option value="check">13–14쪽 · 형성 평가</option>
-      <option value="words">15–16쪽 · 낱말과 도장</option>
+      <option value="warmq">13–14쪽 · 온도와 부피 정리</option>
+      <option value="check">15–16쪽 · 형성 평가</option>
+      <option value="words">17–18쪽 · 낱말과 도장</option>
     </select>
     <button class="chip" id="stamp-chip" type="button">도장 <b id="stamp-count">0</b>/7</button>
     <button class="chip" id="teach-btn" type="button">교사용 노트</button>
@@ -374,8 +378,9 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <li><a href="#pvlab" data-go="pvlab">압력 증가와 감소</a><span class="lead"></span><span class="pg">7</span></li>
       <li><a href="#boyle" data-go="boyle">보일의 J자 관</a><span class="lead"></span><span class="pg">9</span></li>
       <li><a href="#warm" data-go="warm">온도와 부피</a><span class="lead"></span><span class="pg">11</span></li>
-      <li><a href="#check" data-go="check">형성 평가</a><span class="lead"></span><span class="pg">13</span></li>
-      <li><a href="#words" data-go="words">낱말과 도장</a><span class="lead"></span><span class="pg">15</span></li>
+      <li><a href="#warmq" data-go="warmq">온도와 부피 정리</a><span class="lead"></span><span class="pg">13</span></li>
+      <li><a href="#check" data-go="check">형성 평가</a><span class="lead"></span><span class="pg">15</span></li>
+      <li><a href="#words" data-go="words">낱말과 도장</a><span class="lead"></span><span class="pg">17</span></li>
     </ol>
     <h3>이 책을 읽는 법</h3>
     <dl class="howto">
@@ -738,62 +743,14 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
   </article>
 </section>
 
-<!-- ============ 9–10 TEMPERATURE & VOLUME ============ -->
+<!-- ============ 11–12 TEMPERATURE & VOLUME: simulator left, live graph right ============ -->
 <section class="spread" data-key="warm" aria-label="11–12쪽 온도와 부피" hidden>
   <article class="page left">
     <div class="kicker">펼침면 6 · 온도와 부피</div>
     <h2>데우면 늘어나는 공기</h2>
-    <p>찌그러진 탁구공을 뜨거운 물에 넣으면 찌그러진 곳이 펴진다. 공 안의 공기가 데워지면서 부피가 커지려 하기 때문이다.</p>
-    <p>오른쪽 실험에서 실린더는 물에 잠겨 있고, 위는 가벼운 피스톤이 덮고 있다. 피스톤은 위아래로 자유롭게 움직이므로 기체가 받는 <b>압력은 늘 바깥 공기의 압력과 같다</b>. 물의 온도만 바꾸며 기체의 부피를 잰다.</p>
-    <h3>실험 순서</h3>
-    <ol class="steps">
-      <li>물 온도를 0 ℃로 낮추고, 기체 온도가 따라오면 기록한다.</li>
-      <li>물 온도를 20 ℃씩 올리며 기록한다.</li>
-      <li>80 ℃까지 기록한 뒤 그래프 모양을 살펴본다.</li>
-    </ol>
-    <p class="note">색은 입자의 빠르기를 나타낸 거야. 입자가 정말로 색이 변하는 건 아님!</p>
-    <div class="pq" data-answer="c">
-      <fieldset>
-        <legend><span class="tag">예측</span>물을 데우면 실린더 속 기체 입자는 어떻게 될까?</legend>
-        <label class="opt"><input type="radio" name="p4" value="a">입자 하나하나가 커진다</label>
-        <label class="opt"><input type="radio" name="p4" value="b">입자의 수가 늘어난다</label>
-        <label class="opt"><input type="radio" name="p4" value="c">입자가 더 빠르게 움직인다</label>
-        <label class="opt"><input type="radio" name="p4" value="d">입자가 위쪽으로 모인다</label>
-      </fieldset>
-      <div class="flap" data-flap>
-        <div class="flap-body">
-          <p class="verdict" aria-live="polite"></p>
-          <p>‘입자 하나 따라가기’를 켜고 물을 데워 보면, 따라가는 입자의 크기는 그대로이고 움직임만 빨라진다. 입자 수도 처음과 같다.</p>
-          <p class="law"><b>샤를 법칙</b>프랑스 과학자 자크 샤를(1746–1823)의 이름을 따서 ‘샤를 법칙’이라고 부른다. 샤를은 1783년 수소 기구를 타고 하늘을 난 사람이기도 하다. 그는 1787년 무렵 이 관계를 알아냈지만 발표하지 않았고, 1802년 게이뤼삭이 자신의 실험 결과를 발표하면서 샤를이 먼저 알아냈다고 밝혔다.</p>
-          <h3>입자 모형으로 보면</h3>
-          <p>온도가 높아지면 입자 운동이 빨라져 용기 벽에 더 세게 부딪친다(충돌 세기 증가). 그 힘이 피스톤을 밀어 올려 부피가 커지고, 입자 사이의 거리가 멀어진다. 온도가 낮아지면 반대로 입자 운동이 느려져 벽에 약하게 부딪치고 부피가 줄어든다. 입자 하나의 크기와 입자의 개수는 변하지 않는다.</p>
-          <button class="flap-close" type="button">플랩 다시 덮기</button>
-        </div>
-        <button class="flap-cover" type="button" aria-expanded="false"><span>플랩을 들어 확인하기</span><small>예측을 고르고 실험도 해 본 뒤에!</small></button>
-      </div>
-    </div>
-    <div class="fill"><div class="fill-head"><h3>학습지 정리</h3><button class="flap-close" type="button" data-fill-all>빈칸 모두 보기</button></div>
-      <ul>
-        <li>압력이 일정할 때 기체의 온도가 높아지면 부피는 <button class="blank" type="button" data-a="커지고"></button>, 온도가 낮아지면 부피는 <button class="blank" type="button" data-a="작아진다"></button>.</li>
-        <li><b>샤를 법칙</b>: 압력이 일정할 때 기체의 온도가 높아지면 기체의 부피는 일정한 비율로 <button class="blank" type="button" data-a="증가"></button>한다.</li>
-        <li>온도를 높일 때: 입자 운동이 <button class="blank" type="button" data-a="빨라져"></button> 용기 벽에 <button class="blank" type="button" data-a="강하게"></button> 충돌 → 기체의 부피 증가</li>
-        <li>온도를 낮출 때: 입자 운동이 <button class="blank" type="button" data-a="느려져"></button> 용기 벽에 <button class="blank" type="button" data-a="약하게"></button> 충돌 → 기체의 부피 감소</li>
-      </ul></div>
-    <h3>생활 속에서</h3>
-    <ul class="everyday">
-      <li>열기구의 풍선 속 기체를 가열하면 풍선이 크게 부풀어 오른다.</li>
-      <li>추운 겨울철 운동장에 놓아둔 축구공은 찌그러진다.</li>
-      <li>뚜껑을 닫은 빈 페트병을 냉장고에 넣어 두면 찌그러진다.</li>
-      <li>여름철에는 겨울철보다 타이어에 공기를 조금 적게 넣는다.</li>
-    </ul>
-    <h3 class="qhead">확인 문제</h3>
-    <div class="quizcol" data-qsec="warm"></div>
-    <footer class="folio">11</footer>
-  </article>
-  <article class="page right">
-    <figure class="lift" data-stamp-host="warm">
+    <p class="lede-s">피스톤이 자유롭게 움직여 기체의 <b>압력은 늘 바깥 공기의 압력과 같다</b>. 물 온도만 바꾸며 부피를 재면 오른쪽 그래프에 점이 찍힌다.</p>
+    <figure class="lift fit" data-stamp-host="warm">
       <canvas id="cv-bath" width="360" height="450" style="aspect-ratio:360/450" aria-label="물이 든 비커 속 실린더와 가벼운 피스톤, 온도계. 물이 뜨거워지면 기체의 부피가 커진다"></canvas>
-      <figcaption>기체 온도는 물 온도를 몇 초 늦게 따라간다. 노랗게 반짝이는 충돌 표시는 입자가 빠를수록 크고 진하다. 벽에 부딪치는 세기를 나타낸다.</figcaption>
     </figure>
     <div class="slider">
       <label for="t-bath">물 온도 <output id="o-bath" for="t-bath">20 ℃</output></label>
@@ -811,37 +768,101 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <div><dt>입자 운동의 빠르기</dt><dd><span class="meter" role="img" id="m-speed-l" aria-label="입자 운동의 빠르기"><i id="m-speed"></i></span></dd></div>
       <div><dt>벽에 충돌하는 세기</dt><dd><span class="meter" role="img" id="m-hit-l" aria-label="벽에 충돌하는 세기"><i id="m-hit"></i></span></dd></div>
     </dl>
+    <p class="small">기체 온도는 물 온도를 몇 초 늦게 따라간다. 노랗게 반짝이는 충돌 표시는 입자가 빠를수록 크고 진하다. 벽에 부딪치는 세기를 나타낸다.</p>
     <div class="task" id="task-warm"><b>도전</b>피스톤을 빨간 깃발(58 mL) 높이에 맞춰 보자. 물 온도를 바꾼 뒤 기체가 따라올 때까지 기다려야 한다.</div>
+    <div class="obsbox">
+      <h3>실험 순서</h3>
+      <ol class="steps">
+        <li>물 온도를 0 ℃로 낮추고, 기체 온도가 따라오면 기록한다.</li>
+        <li>물 온도를 20 ℃씩 올리며 기록한다.</li>
+        <li>80 ℃까지 기록한 뒤 그래프 모양을 살펴본다.</li>
+      </ol>
+    </div>
+    <p class="note">색은 입자의 빠르기를 나타낸 거야. 입자가 정말로 색이 변하는 건 아님!</p>
+    <footer class="folio">11</footer>
+  </article>
+  <article class="page right">
     <div class="subhead"><h3>온도–부피 그래프</h3><button class="btn ghost" type="button" id="vt-curve" aria-pressed="false" disabled>추세선 보기</button></div>
-    <figure class="lift"><canvas id="cv-vt" width="360" height="250" style="aspect-ratio:360/250" aria-label="온도와 부피 그래프"></canvas></figure>
+    <figure class="lift fit-g"><canvas id="cv-vt" width="360" height="250" style="aspect-ratio:360/250" aria-label="온도와 부피 그래프"></canvas></figure>
     <p class="small">추세선을 켜면 0 ℃보다 낮은 쪽으로 늘인 점선도 보인다. 0 ℃에서도 부피는 0이 아니고, 부피는 온도에 따라 일정한 비율로 늘어난다.</p>
     <div class="tablewrap"><table class="data" aria-label="온도와 부피 기록"><thead><tr><th>번호</th><th>기체 온도 (℃)</th><th>부피 (mL)</th></tr></thead><tbody id="vt-body"><tr class="empty"><td colspan="3">아직 기록이 없다. ‘기록하기’를 눌러 보자.</td></tr></tbody></table></div>
-    <div class="ctrls"><button class="btn ghost" type="button" id="vt-clear">기록 지우기</button></div>
+    <div class="ctrls"><button class="btn ghost" type="button" id="vt-clear">기록 지우기</button></div>    <div class="ctrls"><button class="btn ghost" type="button" id="vt-clear">기록 지우기</button></div>
+    <p class="nextlink">기록을 마쳤다면 <a href="#warmq" data-go="warmq">다음 장에서 정리하고 문제를 풀자 →</a></p>
     <footer class="folio">12</footer>
   </article>
 </section>
 
-<!-- ============ 9–10 CHECK ============ -->
-<section class="spread" data-key="check" aria-label="13–14쪽 형성 평가" hidden>
+<!-- ============ 13–14 TEMPERATURE & VOLUME: wrap-up and questions ============ -->
+<section class="spread" data-key="warmq" aria-label="13–14쪽 온도와 부피 정리" hidden>
   <article class="page left">
-    <div class="kicker">펼침면 7 · 형성 평가</div>
+    <div class="kicker">펼침면 7 · 온도와 부피 정리</div>
+    <h2>왜 늘어났을까</h2>
+    <p>찌그러진 탁구공을 뜨거운 물에 넣으면 찌그러진 곳이 펴진다. 공 안의 공기가 데워지면서 부피가 커지려 하기 때문이다. 앞 장 실험에서 본 것도 같은 일이다.</p>
+    <div class="pq" data-answer="c">
+      <fieldset>
+        <legend><span class="tag">실험 돌아보기</span>물을 데웠을 때 실린더 속 기체 입자는 어떻게 되었을까?</legend>
+        <label class="opt"><input type="radio" name="p4" value="a">입자 하나하나가 커진다</label>
+        <label class="opt"><input type="radio" name="p4" value="b">입자의 수가 늘어난다</label>
+        <label class="opt"><input type="radio" name="p4" value="c">입자가 더 빠르게 움직인다</label>
+        <label class="opt"><input type="radio" name="p4" value="d">입자가 위쪽으로 모인다</label>
+      </fieldset>
+      <div class="flap" data-flap>
+        <div class="flap-body">
+          <p class="verdict" aria-live="polite"></p>
+          <p>‘입자 하나 따라가기’를 켜고 물을 데워 보면, 따라가는 입자의 크기는 그대로이고 움직임만 빨라진다. 입자 수도 처음과 같다.</p>
+          <p class="law"><b>샤를 법칙</b>프랑스 과학자 자크 샤를(1746–1823)의 이름을 따서 ‘샤를 법칙’이라고 부른다. 샤를은 1783년 수소 기구를 타고 하늘을 난 사람이기도 하다. 그는 1787년 무렵 이 관계를 알아냈지만 발표하지 않았고, 1802년 게이뤼삭이 자신의 실험 결과를 발표하면서 샤를이 먼저 알아냈다고 밝혔다.</p>
+          <h3>입자 모형으로 보면</h3>
+          <p>온도가 높아지면 입자 운동이 빨라져 용기 벽에 더 세게 부딪친다(충돌 세기 증가). 그 힘이 피스톤을 밀어 올려 부피가 커지고, 입자 사이의 거리가 멀어진다. 온도가 낮아지면 반대로 입자 운동이 느려져 벽에 약하게 부딪치고 부피가 줄어든다. 입자 하나의 크기와 입자의 개수는 변하지 않는다.</p>
+          <button class="flap-close" type="button">플랩 다시 덮기</button>
+        </div>
+        <button class="flap-cover" type="button" aria-expanded="false"><span>플랩을 들어 확인하기</span><small>앞 장 실험에서 본 것을 떠올려 보자</small></button>
+      </div>
+    </div>
+    <div class="fill"><div class="fill-head"><h3>학습지 정리</h3><button class="flap-close" type="button" data-fill-all>빈칸 모두 보기</button></div>
+      <ul>
+        <li>압력이 일정할 때 기체의 온도가 높아지면 부피는 <button class="blank" type="button" data-a="커지고"></button>, 온도가 낮아지면 부피는 <button class="blank" type="button" data-a="작아진다"></button>.</li>
+        <li><b>샤를 법칙</b>: 압력이 일정할 때 기체의 온도가 높아지면 기체의 부피는 일정한 비율로 <button class="blank" type="button" data-a="증가"></button>한다.</li>
+        <li>온도를 높일 때: 입자 운동이 <button class="blank" type="button" data-a="빨라져"></button> 용기 벽에 <button class="blank" type="button" data-a="강하게"></button> 충돌 → 기체의 부피 증가</li>
+        <li>온도를 낮출 때: 입자 운동이 <button class="blank" type="button" data-a="느려져"></button> 용기 벽에 <button class="blank" type="button" data-a="약하게"></button> 충돌 → 기체의 부피 감소</li>
+      </ul></div>
+    <footer class="folio">13</footer>
+  </article>
+  <article class="page right">
+    <h3>생활 속에서</h3>
+    <ul class="everyday">
+      <li>열기구의 풍선 속 기체를 가열하면 풍선이 크게 부풀어 오른다.</li>
+      <li>추운 겨울철 운동장에 놓아둔 축구공은 찌그러진다.</li>
+      <li>뚜껑을 닫은 빈 페트병을 냉장고에 넣어 두면 찌그러진다.</li>
+      <li>여름철에는 겨울철보다 타이어에 공기를 조금 적게 넣는다.</li>
+    </ul>
+    <h3 class="qhead">확인 문제</h3>
+    <div class="quizcol" data-qsec="warm"></div>
+    <p class="nextlink"><a href="#warm" data-go="warm">← 실험으로 돌아가기</a></p>
+    <footer class="folio">14</footer>
+  </article>
+</section>
+
+<!-- ============ 15–16 CHECK ============ -->
+<section class="spread" data-key="check" aria-label="15–16쪽 형성 평가" hidden>
+  <article class="page left">
+    <div class="kicker">펼침면 8 · 형성 평가</div>
     <h2>형성 평가</h2>
     <p>단원 전체를 묻는 여덟 문제다. 답을 고른 다음 플랩을 들어 확인하자. 일곱 문제 이상 맞히면 도장을 받는다.</p>
     <div id="quiz-left" class="quizcol"></div>
-    <footer class="folio">13</footer>
+    <footer class="folio">15</footer>
   </article>
   <article class="page right" data-stamp-host="check">
     <div id="quiz-right" class="quizcol"></div>
     <p class="score" id="quiz-score" aria-live="polite">플랩을 든 문제 0/8</p>
     <div class="ctrls"><button class="btn ghost" type="button" id="quiz-reset">답 지우고 다시 풀기</button></div>
-    <footer class="folio">14</footer>
+    <footer class="folio">16</footer>
   </article>
 </section>
 
-<!-- ============ 11–12 WORDS & STAMPS ============ -->
-<section class="spread" data-key="words" aria-label="15–16쪽 낱말과 도장" hidden>
+<!-- ============ 17–18 WORDS & STAMPS ============ -->
+<section class="spread" data-key="words" aria-label="17–18쪽 낱말과 도장" hidden>
   <article class="page left">
-    <div class="kicker">펼침면 8 · 낱말</div>
+    <div class="kicker">펼침면 9 · 낱말</div>
     <h2>이 레슨의 낱말</h2>
     <p class="small">빨간 숫자는 그 낱말이 처음 나온 쪽이다. 누르면 그 쪽으로 간다.</p>
     <dl class="gloss">
@@ -858,7 +879,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <div><dt>온도 <a href="#warm" data-go="warm">11</a></dt><dd>차갑고 뜨거운 정도. 기체의 온도가 높을수록 입자 운동이 활발하다.</dd></div>
       <div><dt>샤를 법칙 <a href="#warm" data-go="warm">11</a></dt><dd>압력이 일정할 때 기체의 온도가 높아지면 부피가 커진다는 관계. 자크 샤를의 이름을 땄다.</dd></div>
     </dl>
-    <footer class="folio">15</footer>
+    <footer class="folio">17</footer>
   </article>
   <article class="page right">
     <div class="kicker">도장판</div>
@@ -868,7 +889,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <h3>이 레슨에 대하여</h3>
     <p class="small">구성과 화면 형식은 Techartist의 <a href="https://iamtechartist.github.io/every-joule-lesson1/" target="_blank" rel="noopener">Every Joule · Lesson 1</a>을 따랐다. 글과 그림, 모형은 중학교 과학 1 ‘기체의 성질’에 맞게 새로 만들었다. 본문은 Noto Serif KR과 Source Serif 4, 손글씨는 나눔손글씨 펜으로 썼다.</p>
     <div class="ctrls"><button class="btn" type="button" data-go="teachers">교사용 노트 열기</button></div>
-    <footer class="folio">16</footer>
+    <footer class="folio">18</footer>
   </article>
 </section>
 </main>
@@ -894,7 +915,8 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <tr><td>7–8쪽 압력 증가와 감소</td><td>06-02</td><td>주사기 속 풍선으로 피스톤을 밀어(압력 증가) 보고 당겨(압력 감소) 보며, 옆 그래프에 점이 찍히는 것을 함께 본다. 두 실험을 모두 하면 그래프 분석이 열린다.</td><td>빨간 점과 파란 점은 왜 한 곡선 위에 이어질까? 당기면 풍선 바깥 충돌은 어떻게 되나?</td></tr>
       <tr><td>9–10쪽 보일의 J자 관</td><td>06-02 (심화)</td><td>수은을 부으며 높이차와 공기 기둥 길이를 연속 기록, 압력 막대 두 개 비교</td><td>왜 같은 높이끼리 비교할까? 수은을 빨리 부으면 막대는 어떻게 되나?</td></tr>
       <tr><td>11–12쪽 온도와 부피</td><td>06-03</td><td>물 온도를 바꾸며 부피 기록, 입자 하나 따라가기</td><td>색이 바뀐 건 입자가 변해서인가?</td></tr>
-      <tr><td>13–14쪽 형성 평가</td><td>06-01~03</td><td>8문항, 플랩으로 스스로 채점</td><td>틀린 문제는 어느 펼침면으로 돌아가야 할까?</td></tr>
+      <tr><td>13–14쪽 온도와 부피 정리</td><td>06-03</td><td>입자 모형 설명, 학습지 빈칸, 확인 문제 2개</td><td>입자 하나의 크기와 개수는 바뀌었나?</td></tr>
+      <tr><td>15–16쪽 형성 평가</td><td>06-01~03</td><td>8문항, 플랩으로 스스로 채점</td><td>틀린 문제는 어느 펼침면으로 돌아가야 할까?</td></tr>
     </tbody>
   </table></div>
 
@@ -908,11 +930,11 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
 
   <h3>학교 활동지와의 연결</h3>
   <ul>
-    <li>활동지 ‘1. 기체의 압력과 부피 관계’의 ① 기체의 압력은 1–4쪽, ② 기체의 압력과 부피 관계와 생활 속 현상은 5–6쪽(압력 증가)과 7–8쪽(압력 증가와 감소, 그래프 분석)에 대응한다. 9–10쪽 보일의 J자 관은 심화다. ‘2. 기체의 온도와 부피 관계’는 11–12쪽, 형성 평가는 13–14쪽에 대응한다.</li>
+    <li>활동지 ‘1. 기체의 압력과 부피 관계’의 ① 기체의 압력은 1–4쪽, ② 기체의 압력과 부피 관계와 생활 속 현상은 5–6쪽(압력 증가)과 7–8쪽(압력 증가와 감소, 그래프 분석)에 대응한다. 9–10쪽 보일의 J자 관은 심화다. ‘2. 기체의 온도와 부피 관계’는 11–12쪽(실험과 그래프)과 13–14쪽(정리와 확인 문제), 형성 평가는 15–16쪽에 대응한다.</li>
     <li>각 펼침면의 ‘학습지 정리’는 활동지 빈칸과 같은 낱말(힘, 크다, 반비례, 일정한 비율로 증가, 충돌 횟수, 충돌 세기 등)을 빈칸으로 두었다. 빈칸을 누르면 답이 보이고, ‘빈칸 모두 보기’로 한꺼번에 확인할 수 있다.</li>
     <li>활동지가 구분하는 두 가지 입자 설명을 화면에서도 나눴다. 압력–부피에서는 입자 사이의 거리와 충돌 횟수가 바뀌고 빠르기는 일정하다(5–6쪽 측정값). 온도–부피에서는 입자 운동의 빠르기와 충돌 세기가 바뀐다(11–12쪽 막대와 충돌 표시 크기).</li>
     <li>압력 단위는 활동지처럼 ‘기압’으로 통일했다. 1–2쪽에는 활동지의 두 조건(면적이 같을 때 힘, 힘이 같을 때 면적)을 모두 해 볼 수 있도록 벽돌 수를 바꾸는 단추를 더했다.</li>
-    <li>펼침면마다 있는 확인 문제와 13–14쪽 형성 평가는 활동지의 문항을 그대로 옮기지 않고, 같은 개념을 같은 형식(보기 고르기, 증가·감소·일정 고르기, 보일·샤를 분류, 그래프 고르기)으로 묻도록 고쳐 썼다.</li>
+    <li>펼침면마다 있는 확인 문제와 15–16쪽 형성 평가는 활동지의 문항을 그대로 옮기지 않고, 같은 개념을 같은 형식(보기 고르기, 증가·감소·일정 고르기, 보일·샤를 분류, 그래프 고르기)으로 묻도록 고쳐 썼다.</li>
   </ul>
 
   <h3>모형에서 단순하게 만든 것</h3>
@@ -1465,8 +1487,8 @@ sims.warm=(()=>{const o=setup($('#cv-bath'),360,450),og=setup($('#cv-vt'),360,25
     graph(og,{x0:-100,x1:95,y0:0,y1:70,xt:[-100,-50,0,50],yt:[0,10,20,30,40,50,60,70],yax:0,xl:'기체 온도 (℃)',yl:'부피 (mL)',pts,live:{x:tg,y:V},liveCol:speedCol(1.15*vf),curve:vol,show,cx0:0,cx1:95,ext:-100})}}})();
 
 /* ================= navigation ================= */
-const ORDER=['cover','pressure','gas','squeeze','pvlab','boyle','warm','check','words'];
-const NAMES={cover:'표지와 차례',pressure:'1–2쪽 · 압력이란?',gas:'3–4쪽 · 기체의 압력',squeeze:'5–6쪽 · 압력과 부피',pvlab:'7–8쪽 · 압력 증가와 감소',boyle:'9–10쪽 · 보일의 J자 관',warm:'11–12쪽 · 온도와 부피',check:'13–14쪽 · 형성 평가',words:'15–16쪽 · 낱말과 도장'};
+const ORDER=['cover','pressure','gas','squeeze','pvlab','boyle','warm','warmq','check','words'];
+const NAMES={cover:'표지와 차례',pressure:'1–2쪽 · 압력이란?',gas:'3–4쪽 · 기체의 압력',squeeze:'5–6쪽 · 압력과 부피',pvlab:'7–8쪽 · 압력 증가와 감소',boyle:'9–10쪽 · 보일의 J자 관',warm:'11–12쪽 · 온도와 부피',warmq:'13–14쪽 · 온도와 부피 정리',check:'15–16쪽 · 형성 평가',words:'17–18쪽 · 낱말과 도장'};
 let active='cover',spreadKey='cover';
 function show(key,opts={}){
   if(key==='teachers'){$('#book').hidden=true;$('.turnbar').hidden=true;$('#teachers').hidden=false;active='teachers';try{history.replaceState(null,'','#teachers')}catch(e){}window.scrollTo(0,0);return}
