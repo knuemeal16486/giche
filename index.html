@@ -781,7 +781,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
       <div><dt>입자 운동의 빠르기</dt><dd><span class="meter" role="img" id="m-speed-l" aria-label="입자 운동의 빠르기"><i id="m-speed"></i></span></dd></div>
       <div><dt>벽에 충돌하는 세기</dt><dd><span class="meter" role="img" id="m-hit-l" aria-label="벽에 충돌하는 세기"><i id="m-hit"></i></span></dd></div>
     </dl>
-    <p class="small">기체 온도는 물 온도를 몇 초 늦게 따라간다. 노랗게 반짝이는 충돌 표시는 입자가 빠를수록 크고 진하다. 벽에 부딪치는 세기를 나타낸다.</p>
+    <p class="small">기체 온도는 물 온도를 조금 늦게 따라간다. 노랗게 반짝이는 충돌 표시는 입자가 빠를수록 크고 진하다. 벽에 부딪치는 세기를 나타낸다.</p>
     <div class="task" id="task-warm"><b>도전</b>피스톤을 빨간 깃발(58 mL) 높이에 맞춰 보자. 물 온도를 바꾼 뒤 기체가 따라올 때까지 기다려야 한다.</div>
     <div class="obsbox">
       <h3>실험 순서</h3>
@@ -799,7 +799,7 @@ input.heat::-moz-range-track{height:6px;background:linear-gradient(90deg,#2f7bff
     <figure class="lift fit-g"><canvas id="cv-vt" width="360" height="250" style="aspect-ratio:360/250" aria-label="온도와 부피 그래프"></canvas></figure>
     <p class="small">추세선을 켜면 0 ℃보다 낮은 쪽으로 늘인 점선도 보인다. 0 ℃에서도 부피는 0이 아니고, 부피는 온도에 따라 일정한 비율로 늘어난다.</p>
     <div class="tablewrap"><table class="data" aria-label="온도와 부피 기록"><thead><tr><th>번호</th><th>기체 온도 (℃)</th><th>부피 (mL)</th></tr></thead><tbody id="vt-body"><tr class="empty"><td colspan="3">아직 기록이 없다. ‘기록하기’를 눌러 보자.</td></tr></tbody></table></div>
-    <div class="ctrls"><button class="btn ghost" type="button" id="vt-clear">기록 지우기</button></div>    <div class="ctrls"><button class="btn ghost" type="button" id="vt-clear">기록 지우기</button></div>
+    <div class="ctrls"><button class="btn ghost" type="button" id="vt-clear">기록 지우기</button></div>
     <p class="nextlink">기록을 마쳤다면 <a href="#warmq" data-go="warmq">다음 장에서 정리하고 문제를 풀자 →</a></p>
     <footer class="folio">12</footer>
   </article>
@@ -1504,7 +1504,7 @@ sims.warm=(()=>{const o=setup($('#cv-bath'),360,450),og=setup($('#cv-vt'),360,25
   $('#vt-clear').addEventListener('click',()=>{pts.length=0;table()});
   $('#vt-curve').addEventListener('click',e=>{show=!show;e.currentTarget.setAttribute('aria-pressed',String(show))});
   $('#vt-track').addEventListener('click',e=>{track=!track;e.currentTarget.setAttribute('aria-pressed',String(track))});
-  return{tick(dt){tg+=(tb-tg)*(1-Math.exp(-dt/1.4));if(Math.abs(tb-tg)<.02)tg=tb;V=vol(tg);
+  return{tick(dt){tg+=(tb-tg)*(1-Math.exp(-dt/.4));if(Math.abs(tb-tg)<.02)tg=tb;V=vol(tg);
     const vf=1+2.2*((273+tg)/293-1);g.step(dt,box(),BASE*vf,track);
     if(Math.abs(V-58)<.25){hold+=dt;if(hold>1)earn('warm')}else hold=0;
     acc+=dt;if(acc>.15){acc=0;$('#r-tg').innerHTML=`${tg.toFixed(1)} <small>℃</small>`;$('#r-vt').innerHTML=`${V.toFixed(1)} <small>mL</small>`;const pc=Math.round(clamp((vf-.7)/.9,0,1)*100),mc=speedCol(vf);for(const id of['m-speed','m-hit']){const m=$('#'+id);m.style.width=pc+'%';m.style.background=mc}const lv=pc<35?'느림':pc<55?'보통':'빠름';$('#m-speed-l').setAttribute('aria-label',`입자 운동의 빠르기: ${lv}`);$('#m-hit-l').setAttribute('aria-label',`벽에 충돌하는 세기: ${pc<35?'약함':pc<55?'보통':'강함'}`)}
